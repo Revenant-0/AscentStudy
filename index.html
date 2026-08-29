@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exam Command Center — JEE • IISER • NISER</title>
+<style>
+:root{
+  --bg:#07080b;--panel:#101217;--panel2:#14161c;--line:#242832;--muted:#8c93a3;
+  --text:#f4f6fb;--orange:#ff8a24;--cyan:#25c7d9;--green:#35d38a;--red:#ff5f67;
+  --yellow:#f5c451;--purple:#a78bfa;--shadow:0 18px 60px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% -10%,#1a1713 0,#090a0d 35%,#07080b 70%);color:var(--text);font:14px Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+.app{max-width:1500px;margin:auto;padding:18px 24px 50px}
+.topbar{height:58px;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#ff9a3d,#ff5e20);color:#111;font-weight:900}
+.badge{font-size:10px;padding:4px 7px;border:1px solid #5d341d;background:#24160d;color:#ffad63;border-radius:999px}
+.nav{margin-left:auto;display:flex;gap:5px}.nav button,.ghost{background:transparent;color:var(--muted);border:1px solid transparent;padding:9px 11px;border-radius:9px}.nav button.active,.nav button:hover{background:#17191f;color:#fff;border-color:var(--line)}
+.primary{background:var(--orange);color:#15110d;border:0;padding:10px 14px;border-radius:9px;font-weight:800}
+.hero{margin-top:18px;border:1px solid #492814;background:linear-gradient(105deg,#25150c,#161318 48%,#17110c);border-radius:15px;padding:23px 25px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:25px}
+.kicker{color:#ff9b52;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.hero h1{font-size:27px;margin:7px 0 5px}.hero p{color:#aeb4c0;margin:0;max-width:760px}.hero-score{min-width:180px;border:1px solid #3c2a1f;border-radius:12px;padding:14px;background:#141216}.scorebig{font-size:32px;font-weight:900}.rank{font-size:11px;color:#ffb36f}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}.card{background:linear-gradient(180deg,#111319,#0e1014);border:1px solid var(--line);border-radius:12px;padding:14px}.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:800}.kpi-value{font-size:26px;font-weight:900;margin-top:4px}.kpi-note{font-size:11px;color:#7f8796;margin-top:4px}
+.exam-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.exam-card{padding:15px;border:1px solid var(--line);border-radius:12px;background:#101217}.exam-head{display:flex;justify-content:space-between}.exam-title{font-weight:800}.exam-pct{font-weight:900}.bar{height:5px;background:#252832;border-radius:99px;overflow:hidden;margin-top:12px}.fill{height:100%;border-radius:99px}.orange{background:var(--orange)}.cyan{background:var(--cyan)}.green{background:var(--green)}
+.toolbar{margin-top:14px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#101217;display:flex;gap:8px;flex-wrap:wrap}.search{flex:1;min-width:230px;background:#0b0d11;border:1px solid var(--line);color:#fff;padding:10px 12px;border-radius:8px;outline:none}.select{background:#0b0d11;color:#ddd;border:1px solid var(--line);padding:9px;border-radius:8px}
+.tabs{display:flex;gap:6px;margin-top:14px}.tab{background:#0f1116;color:#8f96a5;border:1px solid var(--line);padding:9px 13px;border-radius:9px}.tab.active{color:#fff;background:#181b22}
+.view{margin-top:10px}.table-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:#0e1014}.table{width:100%;border-collapse:collapse;min-width:1000px}.table th{font-size:10px;color:#7e8696;text-transform:uppercase;text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);background:#12141a}.table td{padding:10px;border-bottom:1px solid #1b1e25;color:#d8dce5}.table tr:last-child td{border-bottom:0}.table tr:hover td{background:#14171d}.chapter{font-weight:700}.sub{display:block;color:#777f90;font-size:10px;margin-top:3px}.pill{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid #30343e}.p-orange{color:#ffb16c;background:#26170d}.p-blue{color:#7edff0;background:#0b2227}.p-green{color:#72e5ae;background:#0b251a}.p-gray{color:#aab0bc;background:#181a20}.p-red{color:#ff858c;background:#291114}
+.check{width:20px;height:20px;border:1px solid #363b47;border-radius:5px;background:#0b0d11;display:inline-grid;place-items:center;color:#07100b}.check.on{background:var(--green);border-color:var(--green);font-weight:900}.mini-bar{width:80px}.pct{font-weight:900}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.col{background:#0e1014;border:1px solid var(--line);border-radius:12px;padding:10px;min-height:320px}.col h3{font-size:12px;margin:4px 4px 10px;display:flex;justify-content:space-between}.task{background:#14171d;border:1px solid #292d36;border-radius:9px;padding:10px;margin:7px 0}.task:hover{border-color:#454b59}.task-title{font-weight:700}.task-meta{color:#808899;font-size:10px;margin-top:5px}
+.stats{display:grid;grid-template-columns:1.2fr 1fr;gap:10px}.chart{height:250px;display:flex;align-items:flex-end;gap:9px;padding:15px 8px 8px;border-top:1px solid #1c1f26}.barcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}.vbar{width:70%;min-width:16px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#ffad63,#e75d1b)}.barlabel{font-size:10px;color:#8b92a1}.scoreline{font-size:11px;color:#b6bcc8}
+.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;place-items:center;padding:20px;z-index:10}.modal-back.show{display:grid}.modal{width:min(680px,100%);background:#12151b;border:1px solid #323743;border-radius:14px;box-shadow:0 30px 100px #000;padding:18px}.modal h2{margin:0 0 14px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:#8f96a5;text-transform:uppercase;font-weight:800}.field input,.field select,.field textarea{background:#0b0d11;color:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;outline:none}.field textarea{min-height:85px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.footer{color:#626978;text-align:center;padding:22px;font-size:11px}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(2,1fr)}.exam-grid,.board,.stats{grid-template-columns:1fr}.hero{flex-direction:column}.nav{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo">J</div> EXAM COMMAND CENTER <span class="badge">LOCAL APP</span></div>
+  <nav class="nav" id="nav"></nav>
+  <button class="primary" onclick="openChapter()">＋ Add Chapter</button>
+</header>
+
+<div class="card" style="margin-top:12px;border-color:#2d343f">
+  <b>🧩 Smart chapter deduplication</b>
+  <div class="sub">Shared chapters are stored once instead of appearing as separate JEE / IISER / NISER rows. Exam coverage is attached to the same chapter.</div>
+</div>
+
+<section class="hero">
+ <div><div class="kicker">Three-exam preparation cockpit</div><h1>JEE Mains · IISER · NISER</h1><p>Track syllabus mastery, practice, PYQs, revisions, mock performance and mistakes from one interactive dashboard. Everything is saved locally in your browser.</p></div>
+ <div class="hero-score"><div class="kpi-label">Overall Mastery</div><div class="scorebig" id="overall">0%</div><div class="rank" id="rank">D-Rank · Build the base</div></div>
+</section>
+
+<section class="kpis">
+ <div class="card"><div class="kpi-label">Mastered</div><div class="kpi-value" id="mastered">0</div><div class="kpi-note">exam-ready chapters</div></div>
+ <div class="card"><div class="kpi-label">In Progress</div><div class="kpi-value" id="progress">0</div><div class="kpi-note">active study queue</div></div>
+ <div class="card"><div class="kpi-label">Priority</div><div class="kpi-value" id="priority">0</div><div class="kpi-note">S / A chapters</div></div>
+ <div class="card"><div class="kpi-label">Due Revision</div><div class="kpi-value" id="due">0</div><div class="kpi-note">revision dates passed</div></div>
+ <div class="card"><div class="kpi-label">Open Errors</div><div class="kpi-value" id="errors">0</div><div class="kpi-note">mistakes to eliminate</div></div>
+</section>
+
+<section class="exam-grid" id="examCards"></section>
+
+<div class="toolbar">
+ <input class="search" id="search" placeholder="Search chapters, subjects, exams…" oninput="render()">
+ <select class="select" id="examFilter" onchange="render()"><option>All Exams</option><option>JEE Mains</option><option>IISER</option><option>NISER</option></select>
+ <select class="select" id="subjectFilter" onchange="render()"><option>All Subjects</option><option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Biology</option><option>Aptitude</option></select>
+ <select class="select" id="priorityFilter" onchange="render()"><option>All Priority</option><option>S</option><option>A</option><option>B</option><option>C</option></select>
+</div>
+
+<div class="tabs">
+ <button class="tab active" data-view="matrix">📚 Mastery Matrix</button>
+ <button class="tab" data-view="board">🔥 Kanban</button>
+ <button class="tab" data-view="mocks">🧪 Mock Lab</button>
+ <button class="tab" data-view="errors">❌ Error Vault</button>
+ <button class="tab" data-view="revision">🗓 Revision</button>
+</div>
+<div id="content" class="view"></div>
+<div class="footer">Exam Command Center · local-first · your data stays in this browser</div>
+</div>
+
+<div class="modal-back" id="modal"><div class="modal" id="modalBody"></div></div>
+<script>
+const seed=[
+["JEE Mains","Physics","Units & Measurements"],["JEE Mains","Physics","Kinematics"],["JEE Mains","Physics","Laws of Motion"],["JEE Mains","Physics","Work, Energy & Power"],["JEE Mains","Physics","Rotational Motion"],["JEE Mains","Physics","Gravitation"],["JEE Mains","Physics","Properties of Solids & Liquids"],["JEE Mains","Physics","Thermodynamics"],["JEE Mains","Physics","Kinetic Theory"],["JEE Mains","Physics","Oscillations & Waves"],["JEE Mains","Physics","Electrostatics"],["JEE Mains","Physics","Current Electricity"],["JEE Mains","Physics","Magnetic Effects of Current"],["JEE Mains","Physics","Electromagnetic Induction & AC"],["JEE Mains","Physics","Optics"],["JEE Mains","Physics","Dual Nature & Modern Physics"],["JEE Mains","Chemistry","Some Basic Concepts"],["JEE Mains","Chemistry","Atomic Structure"],["JEE Mains","Chemistry","Chemical Bonding"],["JEE Mains","Chemistry","Thermodynamics"],["JEE Mains","Chemistry","Equilibrium"],["JEE Mains","Chemistry","Redox Reactions"],["JEE Mains","Chemistry","Solutions"],["JEE Mains","Chemistry","Electrochemistry"],["JEE Mains","Chemistry","Chemical Kinetics"],["JEE Mains","Chemistry","Coordination Compounds"],["JEE Mains","Chemistry","p-Block Elements"],["JEE Mains","Chemistry","Organic Basics"],["JEE Mains","Chemistry","Hydrocarbons"],["JEE Mains","Chemistry","Alcohols, Phenols & Ethers"],["JEE Mains","Chemistry","Aldehydes, Ketones & Acids"],["JEE Mains","Chemistry","Amines"],["JEE Mains","Mathematics","Sets, Relations & Functions"],["JEE Mains","Mathematics","Complex Numbers"],["JEE Mains","Mathematics","Quadratic Equations"],["JEE Mains","Mathematics","Sequences & Series"],["JEE Mains","Mathematics","Permutations & Combinations"],["JEE Mains","Mathematics","Binomial Theorem"],["JEE Mains","Mathematics","Straight Lines"],["JEE Mains","Mathematics","Circles"],["JEE Mains","Mathematics","Limits, Continuity & Differentiability"],["JEE Mains","Mathematics","Integral Calculus"],["JEE Mains","Mathematics","Differential Equations"],["JEE Mains","Mathematics","Matrices & Determinants"],["JEE Mains","Mathematics","Vector Algebra"],["JEE Mains","Mathematics","3D Geometry"],["JEE Mains","Mathematics","Probability & Statistics"],
+["IISER","Physics","Mechanics"],["IISER","Physics","Electricity & Magnetism"],["IISER","Physics","Thermal Physics"],["IISER","Physics","Waves & Optics"],["IISER","Physics","Modern Physics"],["IISER","Chemistry","Atomic Structure"],["IISER","Chemistry","Chemical Bonding"],["IISER","Chemistry","Organic Chemistry"],["IISER","Chemistry","Physical Chemistry"],["IISER","Biology","Cell Biology"],["IISER","Biology","Genetics & Evolution"],["IISER","Biology","Plant & Animal Physiology"],["IISER","Biology","Ecology"],["IISER","Mathematics","Algebra"],["IISER","Mathematics","Calculus"],["IISER","Mathematics","Coordinate Geometry"],["IISER","Aptitude","Quantitative Reasoning"],["IISER","Aptitude","Logical Reasoning"],["IISER","Aptitude","Data Interpretation"],
+["NISER","Physics","Mechanics"],["NISER","Physics","Electrodynamics"],["NISER","Physics","Thermal Physics"],["NISER","Physics","Optics"],["NISER","Physics","Modern Physics"],["NISER","Chemistry","Physical Chemistry"],["NISER","Chemistry","Inorganic Chemistry"],["NISER","Chemistry","Organic Chemistry"],["NISER","Mathematics","Algebra"],["NISER","Mathematics","Calculus"],["NISER","Mathematics","Coordinate Geometry"],["NISER","Mathematics","Probability"],["NISER","Biology","Cell & Molecular Biology"],["NISER","Biology","Genetics"],["NISER","Biology","Ecology & Evolution"]
+];
+let chapters=JSON.parse(localStorage.getItem("ecc_chapters")||"null");
+const EXAMS=["JEE Mains","IISER","NISER"];
+
+function mergeDuplicateChapters(list){
+  const map=new Map();
+  for(const c of list){
+    const key=(c.subject+"|"+c.name).toLowerCase().trim();
+    if(!map.has(key)){
+      const exams=Array.isArray(c.exam)?c.exam:[String(c.exam||"JEE Mains")];
+      map.set(key,{...c,exam:[...new Set(exams.flatMap(e=>String(e).split(" · ")))],jeePyq:!!c.jeePyq,niserPyq:!!c.niserPyq,iiserPyq:!!c.iiserPyq});
+    }else{
+      const m=map.get(key);
+      const exams=Array.isArray(c.exam)?c.exam:[String(c.exam||"")];
+      m.exam=[...new Set([...m.exam,...exams.flatMap(e=>String(e).split(" · "))].filter(Boolean))];
+      ["notes","practice","jeePyq","niserPyq","iiserPyq","revision","mock"].forEach(k=>m[k]=!!m[k]||!!c[k]);
+      if((c.nextRevision||"") && (!m.nextRevision || c.nextRevision<m.nextRevision)) m.nextRevision=c.nextRevision;
+      if(["S","A","B","C"].indexOf(c.priority)<["S","A","B","C"].indexOf(m.priority)) m.priority=c.priority;
+    }
+  }
+  const result=[...map.values()];
+  result.forEach(syncStatus);
+  return result;
+}
+
+if(!chapters){
+  chapters=seed.map((x,i)=>({
+    id:Date.now()+i,exam:[x[0]],subject:x[1],name:x[2],
+    priority:["S","A","B","C"][i%4],status:"Not Started",
+    notes:i%9===0,practice:i%7===0,pyq:false,
+    jeePyq:i%13===0,niserPyq:i%17===0,iiserPyq:i%19===0,
+    revision:i%23===0,mock:i%29===0,
+    nextRevision:i%13===0?new Date(Date.now()+86400000*(i%20-5)).toISOString().slice(0,10):"",
+    weakness:""
+  }));
+}
+chapters=mergeDuplicateChapters(chapters);
+save();
+let mocks=JSON.parse(localStorage.getItem("ecc_mocks")||"[]"), errors=JSON.parse(localStorage.getItem("ecc_errors")||"[]"), currentView="matrix";
+function save(){localStorage.setItem("ecc_chapters",JSON.stringify(chapters));localStorage.setItem("ecc_mocks",JSON.stringify(mocks));localStorage.setItem("ecc_errors",JSON.stringify(errors))}
+function mastery(c){
+  const exams=Array.isArray(c.exam)?c.exam:[c.exam];
+  const pyqs=exams.map(e=>e==="JEE Mains"?c.jeePyq:e==="IISER"?c.iiserPyq:c.niserPyq);
+  const pyqReady=pyqs.length>0 && pyqs.every(Boolean);
+  return [c.notes,c.practice,pyqReady,c.revision,c.mock].filter(Boolean).length*20;
+}
+function syncStatus(c){let m=mastery(c);c.status=m===100?"Mastered":m>=60?"Strong":m>0?"In Progress":"Not Started"}
+function fmtDate(d){if(!d)return "—";return new Date(d+"T00:00:00").toLocaleDateString(undefined,{day:"2-digit",month:"short"})}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function renderNav(){document.getElementById("nav").innerHTML=["matrix","board","mocks","errors","revision"].map((v,i)=>`<button class="${currentView===v?"active":""}" onclick="setView('${v}')">${["Matrix","Kanban","Mocks","Errors","Revision"][i]}</button>`).join("")}
+function renderKPIs(){
+ let avg=chapters.length?Math.round(chapters.reduce((a,c)=>a+mastery(c),0)/chapters.length):0;
+ document.getElementById("overall").textContent=avg+"%";document.getElementById("rank").textContent=avg>=85?"S-Rank · Exam ready":avg>=65?"A-Rank · Strong":avg>=40?"B-Rank · Building":"D-Rank · Build the base";
+ document.getElementById("mastered").textContent=chapters.filter(c=>mastery(c)===100).length;
+ document.getElementById("progress").textContent=chapters.filter(c=>["In Progress","Strong"].includes(c.status)).length;
+ document.getElementById("priority").textContent=chapters.filter(c=>["S","A"].includes(c.priority)).length;
+ let today=new Date().toISOString().slice(0,10);document.getElementById("due").textContent=chapters.filter(c=>c.nextRevision&&c.nextRevision<=today).length;
+ document.getElementById("errors").textContent=errors.filter(e=>!e.fixed).length;
+ let exams=["JEE Mains","IISER","NISER"], cls=["orange","cyan","green"];
+ document.getElementById("examCards").innerHTML=exams.map((e,i)=>{let arr=chapters.filter(c=>c.exam.includes(e)),p=arr.length?Math.round(arr.reduce((a,c)=>a+mastery(c),0)/arr.length):0;return `<div class="exam-card"><div class="exam-head"><div class="exam-title">${e}</div><div class="exam-pct">${p}%</div></div><div class="sub">${arr.filter(c=>mastery(c)===100).length}/${arr.length} chapters mastered</div><div class="bar"><div class="fill ${cls[i]}" style="width:${p}%"></div></div></div>`}).join("");
+}
+function filtered(){let q=document.getElementById("search").value.toLowerCase(),e=document.getElementById("examFilter").value,s=document.getElementById("subjectFilter").value,p=document.getElementById("priorityFilter").value;return chapters.filter(c=>(!q||`${c.name} ${c.subject} ${c.exam}`.toLowerCase().includes(q))&&(e==="All Exams"||c.exam.includes(e))&&(s==="All Subjects"||c.subject===s)&&(p==="All Priority"||c.priority===p))}
+function setView(v){currentView=v;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===v));render()}
+document.querySelectorAll(".tab").forEach(x=>x.onclick=()=>setView(x.dataset.view));
+function renderMatrix(arr){return `<div class="card" style="margin-bottom:10px">
+  <b>🧩 Cross-Exam PYQ Banks</b>
+  <div class="sub">Shared chapters appear only once. One chapter can cover JEE Mains, IISER and NISER together, while each exam’s PYQ bank stays independent.</div>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px">
+    <span class="pill p-orange">JEE PYQs</span>
+    <span class="pill p-green">NISER PYQs</span>
+    <span class="pill p-blue">IISER PYQs</span>
+  </div>
+</div>
+<div class="table-wrap"><table class="table"><thead><tr><th>Chapter</th><th>Exam</th><th>Priority</th><th>Notes</th><th>Practice</th><th>JEE PYQs</th><th>NISER PYQs</th><th>IISER PYQs</th><th>Revision</th><th>Mock</th><th>Mastery</th><th>Next</th><th></th></tr></thead><tbody>${arr.map(c=>`<tr><td><span class="chapter">${esc(c.name)}</span><span class="sub">${esc(c.subject)}</span></td><td><span class="pill ${c.exam.includes("JEE Mains")?"p-orange":c.exam.includes("IISER")?"p-blue":"p-green"}">${Array.isArray(c.exam)?c.exam.join(" · "):c.exam}</span></td><td><span class="pill ${c.priority==="S"?"p-red":c.priority==="A"?"p-orange":"p-gray"}">${c.priority}</span></td>${["notes","practice","jeePyq","niserPyq","iiserPyq","revision","mock"].map(k=>`<td><button class="check ${c[k]?"on":""}" onclick="toggle(${c.id},'${k}')">${c[k]?"✓":""}</button></td>`).join("")}<td><b class="pct">${mastery(c)}%</b><div class="bar mini-bar"><div class="fill ${mastery(c)>=80?"green":mastery(c)>=40?"orange":"cyan"}" style="width:${mastery(c)}%"></div></div></td><td>${fmtDate(c.nextRevision)}</td><td><button class="ghost" onclick="editChapter(${c.id})">✎</button></td></tr>`).join("")}</tbody></table></div>`}
+function renderBoard(arr){let sts=["Not Started","In Progress","Strong","Mastered"];return `<div class="board">${sts.map(s=>`<div class="col"><h3><span>${s}</span><span>${arr.filter(c=>c.status===s).length}</span></h3>${arr.filter(c=>c.status===s).map(c=>`<div class="task" onclick="editChapter(${c.id})"><div class="task-title">${esc(c.name)}</div><div class="task-meta">${Array.isArray(c.exam)?c.exam.join(" · "):c.exam} · ${c.subject}</div><div class="bar"><div class="fill ${c.exam.includes("JEE Mains")?"orange":c.exam.includes("IISER")?"cyan":"green"}" style="width:${mastery(c)}%"></div></div><div class="task-meta">${mastery(c)}% · Priority ${c.priority}</div></div>`).join("")}</div>`).join("")}</div>`}
+function renderMocks(){return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>🧪 Mock Lab</b><div class="sub">Log tests and turn scores into action.</div></div><button class="primary" onclick="openMock()">＋ Log Mock</button></div><div class="stats" style="margin-top:12px"><div class="card"><div class="kpi-label">Recent performance</div><div class="chart">${mocks.length?mocks.slice(-10).map(m=>`<div class="barcol"><div class="barlabel">${m.score}/${m.max}</div><div class="vbar" style="height:${Math.max(8,Math.round(m.score/m.max*170))}px"></div><div class="barlabel">${esc(m.exam)}</div></div>`).join(""):`<div style="color:#727988;margin:auto">No mocks logged yet.</div>`}</div></div><div class="card"><div class="kpi-label">Mock history</div>${mocks.length?mocks.slice().reverse().map((m,i)=>`<div style="padding:10px 0;border-bottom:1px solid #20232b"><b>${esc(m.name)}</b> <span class="pill p-gray">${m.exam}</span><div class="scoreline">${m.score}/${m.max} · ${Math.round(m.score/m.max*100)}% · ${fmtDate(m.date)} · ${esc(m.weakness||"No weakness logged")}</div></div>`).join(""):`<div class="sub" style="margin-top:12px">Your mock history will appear here.</div>`}</div></div></div>`}
+function renderErrors(){return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>❌ Error Vault</b><div class="sub">Every recurring mistake gets a cause, fix and retest.</div></div><button class="primary" onclick="openError()">＋ Log Error</button></div><div style="margin-top:12px">${errors.length?errors.slice().reverse().map(e=>`<div class="task" style="display:flex;justify-content:space-between;gap:10px"><div><b>${esc(e.mistake)}</b><div class="task-meta">${e.exam} · ${e.subject} · ${e.type}</div><div style="margin-top:7px;color:#aeb4c0;font-size:12px">Cause: ${esc(e.cause||"—")} · Fix: ${esc(e.fix||"—")}</div></div><button class="ghost" onclick="fixError(${e.id})">${e.fixed?"✓ Fixed":"Mark fixed"}</button></div>`).join(""):`<div class="sub" style="margin-top:15px">No errors logged. Keep it that way.</div>`}</div></div>`}
+function renderRevision(arr){arr=arr.filter(c=>c.nextRevision);arr.sort((a,b)=>a.nextRevision.localeCompare(b.nextRevision));return `<div class="card"><b>🗓 Revision Queue</b><div class="sub">Chapters ordered by the next scheduled revision.</div><div style="margin-top:12px">${arr.length?arr.map(c=>`<div class="task" onclick="editChapter(${c.id})"><div style="display:flex;justify-content:space-between"><b>${esc(c.name)}</b><span class="pill ${c.nextRevision<=new Date().toISOString().slice(0,10)?"p-red":"p-blue"}">${fmtDate(c.nextRevision)}</span></div><div class="task-meta">${Array.isArray(c.exam)?c.exam.join(" · "):c.exam} · ${c.subject} · ${mastery(c)}% mastery</div></div>`).join(""):`<div class="sub" style="margin-top:12px">Set a Next Revision date on chapters to build this queue.</div>`}</div></div>`}
+function render(){renderNav();renderKPIs();let arr=filtered();let c=document.getElementById("content");if(currentView==="matrix")c.innerHTML=renderMatrix(arr);if(currentView==="board")c.innerHTML=renderBoard(arr);if(currentView==="mocks")c.innerHTML=renderMocks();if(currentView==="errors")c.innerHTML=renderErrors();if(currentView==="revision")c.innerHTML=renderRevision(arr)}
+function toggle(id,k){let c=chapters.find(x=>x.id===id);c[k]=!c[k];syncStatus(c);save();render()}
+function openChapter(id=null){let c=id?chapters.find(x=>x.id===id):null;document.getElementById("modalBody").innerHTML=`<h2>${c?"Edit Chapter":"Add Chapter"}</h2><div class="form"><div class="field"><label>Chapter</label><input id="f_name" value="${esc(c?.name||"")}"></div><div class="field"><label>Exam</label><select id="f_exam">${["JEE Mains","IISER","NISER","JEE Mains · IISER · NISER"].map(x=>`<option ${((Array.isArray(c?.exam)?c.exam.join(" · "):c?.exam)||"JEE Mains")===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Subject</label><select id="f_subject">${["Physics","Chemistry","Mathematics","Biology","Aptitude"].map(x=>`<option ${c?.subject===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Priority</label><select id="f_priority">${["S","A","B","C"].map(x=>`<option ${c?.priority===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Next Revision</label><input type="date" id="f_date" value="${c?.nextRevision||""}"></div><div class="field full"><label>Weakness / note</label><textarea id="f_note">${esc(c?.weakness||"")}</textarea></div></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button>${c?`<button class="ghost" onclick="deleteChapter(${c.id})">Delete</button>`:""}<button class="primary" onclick="saveChapter(${c?.id||0})">Save Chapter</button></div>`;document.getElementById("modal").classList.add("show")}
+function editChapter(id){openChapter(id)}
+function saveChapter(id){let c=id&&chapters.find(x=>x.id===id);if(!c){c={id:Date.now(),notes:false,practice:false,pyq:false,jeePyq:false,niserPyq:false,iiserPyq:false,revision:false,mock:false,status:"Not Started"};chapters.push(c)}Object.assign(c,{name:document.getElementById("f_name").value.trim()||"Untitled",exam:document.getElementById("f_exam").value==="JEE Mains · IISER · NISER"?["JEE Mains","IISER","NISER"]:[document.getElementById("f_exam").value],subject:document.getElementById("f_subject").value,priority:document.getElementById("f_priority").value,nextRevision:document.getElementById("f_date").value,weakness:document.getElementById("f_note").value});syncStatus(c);save();closeModal();render()}
+function deleteChapter(id){if(confirm("Delete this chapter?")){chapters=chapters.filter(c=>c.id!==id);save();closeModal();render()}}
+function openMock(){document.getElementById("modalBody").innerHTML=`<h2>Log Mock Test</h2><div class="form"><div class="field"><label>Mock name</label><input id="m_name" placeholder="JEE Full Test 01"></div><div class="field"><label>Exam</label><select id="m_exam"><option>JEE Mains</option><option>IISER</option><option>NISER</option></select></div><div class="field"><label>Date</label><input type="date" id="m_date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>Score</label><input type="number" id="m_score"></div><div class="field"><label>Max Score</label><input type="number" id="m_max" value="300"></div><div class="field full"><label>Weakness / next action</label><textarea id="m_weakness"></textarea></div></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveMock()">Save Mock</button></div>`;document.getElementById("modal").classList.add("show")}
+function saveMock(){mocks.push({id:Date.now(),name:document.getElementById("m_name").value||"Untitled Mock",exam:document.getElementById("m_exam").value,date:document.getElementById("m_date").value,score:+document.getElementById("m_score").value||0,max:+document.getElementById("m_max").value||1,weakness:document.getElementById("m_weakness").value});save();closeModal();render()}
+function openError(){document.getElementById("modalBody").innerHTML=`<h2>Log Mistake</h2><div class="form"><div class="field"><label>Mistake</label><input id="e_name" placeholder="Forgot sign in integration"></div><div class="field"><label>Exam</label><select id="e_exam"><option>JEE Mains</option><option>IISER</option><option>NISER</option></select></div><div class="field"><label>Subject</label><select id="e_subject">${["Physics","Chemistry","Mathematics","Biology","Aptitude"].map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>Type</label><select id="e_type">${["Concept","Formula","Calculation","Misread","Guess","Time","Strategy"].map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field full"><label>Cause</label><textarea id="e_cause"></textarea></div><div class="field full"><label>Fix</label><textarea id="e_fix"></textarea></div></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveError()">Save Error</button></div>`;document.getElementById("modal").classList.add("show")}
+function saveError(){errors.push({id:Date.now(),mistake:document.getElementById("e_name").value||"Unnamed mistake",exam:document.getElementById("e_exam").value,subject:document.getElementById("e_subject").value,type:document.getElementById("e_type").value,cause:document.getElementById("e_cause").value,fix:document.getElementById("e_fix").value,fixed:false});save();closeModal();render()}
+function fixError(id){let e=errors.find(x=>x.id===id);e.fixed=!e.fixed;save();render()}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+render();
+</script>
+</body>
+</html>
