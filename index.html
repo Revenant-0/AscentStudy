@@ -483,6 +483,26 @@ function allChaptersEverywhere(){
 }
 
 /* ============================= STORAGE ============================= */
+(function(){
+  if(window.storage) return;
+  window.storage = {
+    async get(key){
+      const v = localStorage.getItem(key);
+      if(v !== null) return {value:v};
+      throw new Error('key not found');
+    },
+    async set(key,val){ localStorage.setItem(key,val); },
+    async list(prefix){
+      const keys=[];
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k.startsWith(prefix)) keys.push(k);
+      }
+      return keys;
+    }
+  };
+})();
+
 async function loadState(){
   try{
     const r = await window.storage.get('progress', false);
