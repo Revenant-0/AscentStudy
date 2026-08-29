@@ -1,182 +1,1085 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Exam Command Center — JEE • IISER • NISER</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASCENT — JEE / IAT / NEST 2027 Command Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07080b;--panel:#101217;--panel2:#14161c;--line:#242832;--muted:#8c93a3;
-  --text:#f4f6fb;--orange:#ff8a24;--cyan:#25c7d9;--green:#35d38a;--red:#ff5f67;
-  --yellow:#f5c451;--purple:#a78bfa;--shadow:0 18px 60px rgba(0,0,0,.35)
+  --base:#1e1e2e; --mantle:#181825; --crust:#11111b;
+  --surface0:#313244; --surface1:#45475a; --surface2:#585b70;
+  --overlay0:#6c7086; --overlay1:#7f849c; --overlay2:#9399b2;
+  --text:#cdd6f4; --subtext0:#a6adc8; --subtext1:#bac2de;
+  --rosewater:#f5e0dc; --flamingo:#f2cdcd; --pink:#f5c2e7; --mauve:#cba6f7;
+  --red:#f38ba8; --maroon:#eba0ac; --peach:#fab387; --yellow:#f9e2af;
+  --green:#a6e3a1; --teal:#94e2d5; --sky:#89dceb; --sapphire:#74c7ec;
+  --blue:#89b4fa; --lavender:#b4befe;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
 }
-*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% -10%,#1a1713 0,#090a0d 35%,#07080b 70%);color:var(--text);font:14px Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-button,input,select,textarea{font:inherit} button{cursor:pointer}
-.app{max-width:1500px;margin:auto;padding:18px 24px 50px}
-.topbar{height:58px;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#ff9a3d,#ff5e20);color:#111;font-weight:900}
-.badge{font-size:10px;padding:4px 7px;border:1px solid #5d341d;background:#24160d;color:#ffad63;border-radius:999px}
-.nav{margin-left:auto;display:flex;gap:5px}.nav button,.ghost{background:transparent;color:var(--muted);border:1px solid transparent;padding:9px 11px;border-radius:9px}.nav button.active,.nav button:hover{background:#17191f;color:#fff;border-color:var(--line)}
-.primary{background:var(--orange);color:#15110d;border:0;padding:10px 14px;border-radius:9px;font-weight:800}
-.hero{margin-top:18px;border:1px solid #492814;background:linear-gradient(105deg,#25150c,#161318 48%,#17110c);border-radius:15px;padding:23px 25px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:25px}
-.kicker{color:#ff9b52;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.hero h1{font-size:27px;margin:7px 0 5px}.hero p{color:#aeb4c0;margin:0;max-width:760px}.hero-score{min-width:180px;border:1px solid #3c2a1f;border-radius:12px;padding:14px;background:#141216}.scorebig{font-size:32px;font-weight:900}.rank{font-size:11px;color:#ffb36f}
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}.card{background:linear-gradient(180deg,#111319,#0e1014);border:1px solid var(--line);border-radius:12px;padding:14px}.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:800}.kpi-value{font-size:26px;font-weight:900;margin-top:4px}.kpi-note{font-size:11px;color:#7f8796;margin-top:4px}
-.exam-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.exam-card{padding:15px;border:1px solid var(--line);border-radius:12px;background:#101217}.exam-head{display:flex;justify-content:space-between}.exam-title{font-weight:800}.exam-pct{font-weight:900}.bar{height:5px;background:#252832;border-radius:99px;overflow:hidden;margin-top:12px}.fill{height:100%;border-radius:99px}.orange{background:var(--orange)}.cyan{background:var(--cyan)}.green{background:var(--green)}
-.toolbar{margin-top:14px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#101217;display:flex;gap:8px;flex-wrap:wrap}.search{flex:1;min-width:230px;background:#0b0d11;border:1px solid var(--line);color:#fff;padding:10px 12px;border-radius:8px;outline:none}.select{background:#0b0d11;color:#ddd;border:1px solid var(--line);padding:9px;border-radius:8px}
-.tabs{display:flex;gap:6px;margin-top:14px}.tab{background:#0f1116;color:#8f96a5;border:1px solid var(--line);padding:9px 13px;border-radius:9px}.tab.active{color:#fff;background:#181b22}
-.view{margin-top:10px}.table-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:#0e1014}.table{width:100%;border-collapse:collapse;min-width:1000px}.table th{font-size:10px;color:#7e8696;text-transform:uppercase;text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);background:#12141a}.table td{padding:10px;border-bottom:1px solid #1b1e25;color:#d8dce5}.table tr:last-child td{border-bottom:0}.table tr:hover td{background:#14171d}.chapter{font-weight:700}.sub{display:block;color:#777f90;font-size:10px;margin-top:3px}.pill{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid #30343e}.p-orange{color:#ffb16c;background:#26170d}.p-blue{color:#7edff0;background:#0b2227}.p-green{color:#72e5ae;background:#0b251a}.p-gray{color:#aab0bc;background:#181a20}.p-red{color:#ff858c;background:#291114}
-.check{width:20px;height:20px;border:1px solid #363b47;border-radius:5px;background:#0b0d11;display:inline-grid;place-items:center;color:#07100b}.check.on{background:var(--green);border-color:var(--green);font-weight:900}.mini-bar{width:80px}.pct{font-weight:900}
-.board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.col{background:#0e1014;border:1px solid var(--line);border-radius:12px;padding:10px;min-height:320px}.col h3{font-size:12px;margin:4px 4px 10px;display:flex;justify-content:space-between}.task{background:#14171d;border:1px solid #292d36;border-radius:9px;padding:10px;margin:7px 0}.task:hover{border-color:#454b59}.task-title{font-weight:700}.task-meta{color:#808899;font-size:10px;margin-top:5px}
-.stats{display:grid;grid-template-columns:1.2fr 1fr;gap:10px}.chart{height:250px;display:flex;align-items:flex-end;gap:9px;padding:15px 8px 8px;border-top:1px solid #1c1f26}.barcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}.vbar{width:70%;min-width:16px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#ffad63,#e75d1b)}.barlabel{font-size:10px;color:#8b92a1}.scoreline{font-size:11px;color:#b6bcc8}
-.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;place-items:center;padding:20px;z-index:10}.modal-back.show{display:grid}.modal{width:min(680px,100%);background:#12151b;border:1px solid #323743;border-radius:14px;box-shadow:0 30px 100px #000;padding:18px}.modal h2{margin:0 0 14px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:#8f96a5;text-transform:uppercase;font-weight:800}.field input,.field select,.field textarea{background:#0b0d11;color:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;outline:none}.field textarea{min-height:85px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
-.footer{color:#626978;text-align:center;padding:22px;font-size:11px}
-@media(max-width:1000px){.kpis{grid-template-columns:repeat(2,1fr)}.exam-grid,.board,.stats{grid-template-columns:1fr}.hero{flex-direction:column}.nav{display:none}}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:radial-gradient(circle at 15% 0%, rgba(203,166,247,0.06), transparent 45%),
+             radial-gradient(circle at 85% 10%, rgba(137,180,250,0.06), transparent 40%),
+             var(--crust);
+  color:var(--text); font-family:var(--font-body); font-size:14px; line-height:1.45;
+  min-height:100vh;
+}
+::selection{background:var(--mauve); color:var(--crust);}
+::-webkit-scrollbar{height:10px; width:10px;}
+::-webkit-scrollbar-track{background:var(--mantle);}
+::-webkit-scrollbar-thumb{background:var(--surface1); border-radius:6px;}
+::-webkit-scrollbar-thumb:hover{background:var(--surface2);}
+a{color:inherit;}
+button{font-family:inherit;}
+:focus-visible{outline:2px solid var(--mauve); outline-offset:2px; border-radius:4px;}
+
+.wrap{max-width:1360px; margin:0 auto; padding:0 24px 80px;}
+
+/* ---------- HEADER ---------- */
+.topband{background:var(--mantle); border-bottom:1px solid var(--surface0); padding:16px 0 0;}
+.topband-inner{max-width:1360px; margin:0 auto; padding:0 24px; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+.brand{display:flex; gap:14px; align-items:flex-start;}
+.brand-mark{width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,var(--mauve),var(--blue)); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; box-shadow:0 0 0 1px rgba(255,255,255,0.06), 0 6px 18px -6px rgba(203,166,247,0.55);}
+.brand h1{font-family:var(--font-display); font-size:20px; margin:0; letter-spacing:0.02em; color:var(--text);}
+.brand .sub{color:var(--subtext0); font-size:12.5px; margin-top:3px; max-width:460px;}
+.brand .badges{display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;}
+.tag-pill{font-family:var(--font-mono); font-size:10.5px; padding:2px 8px; border-radius:20px; font-weight:600; letter-spacing:0.03em;}
+.tag-J{background:rgba(137,180,250,0.15); color:var(--blue); border:1px solid rgba(137,180,250,0.35);}
+.tag-I{background:rgba(203,166,247,0.15); color:var(--mauve); border:1px solid rgba(203,166,247,0.35);}
+.tag-N{background:rgba(166,227,161,0.15); color:var(--green); border:1px solid rgba(166,227,161,0.35);}
+
+.head-actions{display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding-top:2px;}
+.btn{border:1px solid var(--surface1); background:var(--surface0); color:var(--subtext1); font-size:12.5px; font-weight:500; padding:8px 13px; border-radius:9px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:.15s; white-space:nowrap;}
+.btn:hover{background:var(--surface1); color:var(--text); border-color:var(--surface2);}
+.btn.primary{background:var(--mauve); color:var(--crust); border-color:var(--mauve); font-weight:600;}
+.btn.primary:hover{background:var(--pink); border-color:var(--pink);}
+.btn.ghost{background:transparent;}
+.btn.danger:hover{background:rgba(243,139,168,0.15); color:var(--red); border-color:rgba(243,139,168,0.4);}
+.btn svg{width:13px; height:13px;}
+
+/* ---------- TABS ---------- */
+.tabs{display:flex; gap:4px; margin-top:18px; overflow-x:auto; padding-bottom:0;}
+.tab{font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--subtext0); background:transparent; border:none; padding:11px 18px; cursor:pointer; border-radius:10px 10px 0 0; display:flex; align-items:center; gap:8px; position:relative; transition:.15s; white-space:nowrap;}
+.tab:hover{color:var(--text); background:rgba(255,255,255,0.03);}
+.tab.active{color:var(--text); background:var(--base);}
+.tab .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
+.tab .pct{font-family:var(--font-mono); font-size:11px; color:var(--overlay1); background:var(--crust); padding:1px 6px; border-radius:8px;}
+.tab.active .pct{color:var(--text);}
+
+main{background:var(--base);}
+
+/* ---------- OVERVIEW HERO ---------- */
+.hero{padding:36px 0 6px; display:grid; grid-template-columns:1.15fr 1fr; gap:28px; align-items:center;}
+@media (max-width:900px){.hero{grid-template-columns:1fr;}}
+.hero-copy .eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em; color:var(--mauve); text-transform:uppercase;}
+.hero-copy h2{font-family:var(--font-display); font-size:30px; margin:8px 0 10px; line-height:1.2;}
+.hero-copy p{color:var(--subtext0); max-width:480px; font-size:13.5px;}
+.countdowns{display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;}
+.cd-card{background:var(--mantle); border:1px solid var(--surface0); border-radius:12px; padding:12px 16px; min-width:118px;}
+.cd-card .exam{font-family:var(--font-mono); font-size:10.5px; font-weight:700; letter-spacing:0.05em;}
+.cd-card .days{font-family:var(--font-mono); font-size:24px; font-weight:600; margin-top:4px; color:var(--text);}
+.cd-card .days span{font-size:11px; color:var(--overlay1); font-weight:400;}
+.cd-card .date{font-size:10.5px; color:var(--overlay1); margin-top:2px;}
+
+.compass-wrap{display:flex; justify-content:center;}
+.compass{position:relative; width:280px; height:280px;}
+.compass svg{width:100%; height:100%; transform:rotate(-90deg);}
+.compass-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;}
+.compass-center .big{font-family:var(--font-mono); font-size:34px; font-weight:700; color:var(--text);}
+.compass-center .lbl{font-size:10.5px; color:var(--subtext0); margin-top:2px; max-width:120px;}
+.compass-legend{display:flex; flex-direction:column; gap:6px; margin-left:22px; justify-content:center;}
+.compass-row{display:flex; align-items:center; gap:26px;}
+.leg-item{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--subtext0);}
+.leg-item .sw{width:9px; height:9px; border-radius:50%;}
+.leg-item b{font-family:var(--font-mono); color:var(--text); font-weight:600;}
+
+/* ---------- STAT CARDS ---------- */
+.stat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:14px; margin:26px 0 22px;}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+.tier-badge{font-family:var(--font-mono); font-weight:700; font-size:11px; width:22px; height:22px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tier-legend{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; background:var(--mantle); border:1px solid var(--surface0); border-radius:12px; padding:11px 16px;}
+.tier-legend .tl-item{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--subtext0);}
+.tier-legend .tl-item b{color:var(--text); font-weight:600;}
+.tier-legend .tl-note{font-size:11px; color:var(--overlay1); margin-left:auto;}
+@media (max-width:900px){.tier-legend .tl-note{margin-left:0; width:100%;}}
+td.tiercell{text-align:center;}
+.stat-card{background:var(--mantle); border:1px solid var(--surface0); border-radius:14px; padding:16px 16px 14px; position:relative; overflow:hidden;}
+.stat-card .icon{width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:14px; margin-bottom:10px;}
+.stat-card .lbl{font-size:10.5px; letter-spacing:0.06em; color:var(--overlay1); text-transform:uppercase; font-weight:600;}
+.stat-card .val{font-family:var(--font-mono); font-size:26px; font-weight:700; margin-top:4px; color:var(--text);}
+.stat-card .cap{font-size:11px; color:var(--overlay1); margin-top:5px;}
+.mini-bar{height:4px; background:var(--surface0); border-radius:3px; margin-top:10px; overflow:hidden;}
+.mini-bar > i{display:block; height:100%; border-radius:3px;}
+
+/* ---------- UNIT / SUBJECT SUMMARY CARDS ---------- */
+.unit-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px;}
+@media (max-width:1000px){.unit-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.unit-grid{grid-template-columns:1fr;}}
+.unit-card{background:var(--mantle); border:1px solid var(--surface0); border-radius:14px; padding:15px 16px; cursor:pointer; transition:.15s;}
+.unit-card:hover{border-color:var(--surface2); transform:translateY(-1px);}
+.unit-card .top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:9px;}
+.unit-card .name{font-family:var(--font-display); font-weight:600; font-size:13.5px;}
+.unit-card .cnt{font-size:11px; color:var(--overlay1); margin-top:2px;}
+.unit-card .pct{font-family:var(--font-mono); font-weight:700; font-size:15px;}
+.unit-card .icon-badge{width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; margin-bottom:8px;}
+
+/* ---------- FOCUS TODAY ---------- */
+.focus-panel{background:var(--mantle); border:1px solid var(--surface0); border-radius:14px; padding:18px 20px; margin-bottom:24px;}
+.focus-panel h3{font-family:var(--font-display); font-size:14px; margin:0 0 12px; display:flex; align-items:center; gap:8px;}
+.focus-list{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+@media (max-width:800px){.focus-list{grid-template-columns:1fr;}}
+.focus-item{background:var(--surface0); border-radius:10px; padding:11px 13px; display:flex; justify-content:space-between; align-items:center; gap:10px;}
+.focus-item .fn{font-size:12.5px; font-weight:500;}
+.focus-item .fs{font-size:10.5px; color:var(--overlay1); margin-top:2px;}
+.focus-item .fp{font-family:var(--font-mono); font-weight:700; font-size:13px; flex-shrink:0;}
+
+/* ---------- SUBJECT HEADER ---------- */
+.subj-head{padding-top:28px; display:flex; align-items:flex-start; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:20px;}
+.subj-head .left{display:flex; gap:14px; align-items:flex-start;}
+.subj-icon{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;}
+.subj-head h2{font-family:var(--font-display); font-size:22px; margin:0;}
+.subj-head p{color:var(--subtext0); font-size:12.5px; margin-top:4px; max-width:440px;}
+
+/* ---------- FILTER BAR ---------- */
+.filter-bar{display:flex; gap:10px; align-items:center; margin-bottom:16px; flex-wrap:wrap;}
+.search-box{flex:1; min-width:220px; display:flex; align-items:center; gap:8px; background:var(--mantle); border:1px solid var(--surface0); border-radius:10px; padding:9px 13px;}
+.search-box input{background:transparent; border:none; color:var(--text); font-size:13px; width:100%; outline:none; font-family:var(--font-body);}
+.search-box input::placeholder{color:var(--overlay0);}
+.search-box svg{width:15px; height:15px; color:var(--overlay1); flex-shrink:0;}
+select.fbtn, .fbtn{background:var(--mantle); border:1px solid var(--surface0); color:var(--subtext1); font-size:12.5px; padding:9px 12px; border-radius:10px; cursor:pointer; font-family:var(--font-body);}
+select.fbtn{appearance:none; padding-right:28px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237f849c'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 11px center;}
+
+/* ---------- MILESTONE BAR ---------- */
+.milestone{background:var(--mantle); border:1px solid var(--surface0); border-radius:12px; padding:12px 16px; margin-bottom:18px; display:flex; gap:22px; flex-wrap:wrap; align-items:center;}
+.milestone .m-title{font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.08em; color:var(--overlay1); text-transform:uppercase; margin-right:4px;}
+.milestone .m-item{display:flex; align-items:center; gap:7px; font-size:12px;}
+.milestone .m-item .m-track{width:52px; height:5px; background:var(--surface0); border-radius:3px; overflow:hidden;}
+.milestone .m-item .m-track > i{display:block; height:100%; border-radius:3px;}
+.milestone .m-item b{font-family:var(--font-mono); color:var(--text); font-weight:600;}
+.milestone .m-item span.frac{color:var(--overlay1); font-size:10.5px;}
+
+/* ---------- TABLE ---------- */
+.table-wrap{background:var(--mantle); border:1px solid var(--surface0); border-radius:14px; overflow:hidden;}
+table{width:100%; border-collapse:collapse; font-size:12.8px;}
+thead th{background:var(--crust); color:var(--overlay1); font-weight:600; font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; padding:11px 10px; text-align:left; border-bottom:1px solid var(--surface0); white-space:nowrap;}
+thead th.stage{text-align:center; width:46px;}
+tbody tr{border-bottom:1px solid var(--surface0);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,0.015);}
+tbody tr.unit-divider td{background:var(--crust); padding:8px 14px; font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.08em; color:var(--overlay1); text-transform:uppercase; border-bottom:1px solid var(--surface0);}
+td{padding:10px; vertical-align:middle;}
+td.chname{min-width:220px;}
+td.chname .cn{font-weight:500; color:var(--text); font-size:13px;}
+td.chname .ctags{display:flex; gap:4px; margin-top:4px;}
+td.stage{text-align:center;}
+td.pctcell{white-space:nowrap;}
+td.actions{white-space:nowrap; text-align:right;}
+
+.chk{width:22px; height:22px; border-radius:50%; border:1.5px solid var(--surface2); background:transparent; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:.12s; padding:0;}
+.chk:hover{border-color:var(--overlay1);}
+.chk.on{border-color:transparent;}
+.chk svg{width:12px; height:12px; opacity:0; transition:.12s;}
+.chk.on svg{opacity:1;}
+
+.pct-badge{font-family:var(--font-mono); font-weight:700; font-size:12.5px; padding:3px 9px; border-radius:8px; display:inline-block; min-width:44px; text-align:center;}
+.pct-track{width:56px; height:5px; background:var(--surface0); border-radius:3px; overflow:hidden; margin-top:5px;}
+.pct-track > i{display:block; height:100%; border-radius:3px;}
+
+.icon-btn{width:26px; height:26px; border-radius:7px; border:1px solid var(--surface0); background:transparent; color:var(--overlay1); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; margin-left:4px; transition:.12s;}
+.icon-btn:hover{background:var(--surface0); color:var(--text);}
+.icon-btn.flagged{color:var(--yellow); border-color:rgba(249,226,175,0.4);}
+.icon-btn svg{width:13px; height:13px;}
+.note-indicator{width:5px; height:5px; border-radius:50%; background:var(--sky); display:inline-block; margin-left:5px; vertical-align:middle;}
+
+.empty-state{padding:50px 20px; text-align:center; color:var(--overlay1);}
+.empty-state .em-icon{font-size:26px; margin-bottom:8px;}
+
+/* ---------- MODAL ---------- */
+.modal-backdrop{position:fixed; inset:0; background:rgba(17,17,27,0.72); backdrop-filter:blur(3px); display:none; align-items:center; justify-content:center; z-index:100; padding:20px;}
+.modal-backdrop.show{display:flex;}
+.modal{background:var(--mantle); border:1px solid var(--surface1); border-radius:16px; padding:22px; width:100%; max-width:420px; box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);}
+.modal h3{font-family:var(--font-display); font-size:16px; margin:0 0 16px;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:11.5px; color:var(--subtext0); margin-bottom:5px; font-weight:500;}
+.field input[type=text], .field textarea, .field select{width:100%; background:var(--surface0); border:1px solid var(--surface1); color:var(--text); border-radius:8px; padding:9px 11px; font-size:13px; font-family:var(--font-body); outline:none;}
+.field textarea{resize:vertical; min-height:70px;}
+.field input[type=text]:focus, .field textarea:focus, .field select:focus{border-color:var(--mauve);}
+.chip-select{display:flex; gap:8px; flex-wrap:wrap;}
+.chip-opt{border:1px solid var(--surface1); background:var(--surface0); color:var(--subtext0); font-size:12px; padding:6px 12px; border-radius:20px; cursor:pointer; font-weight:600; font-family:var(--font-mono);}
+.chip-opt.sel{color:var(--crust);}
+.modal-actions{display:flex; justify-content:flex-end; gap:8px; margin-top:18px;}
+
+.toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--surface0); border:1px solid var(--surface2); color:var(--text); padding:10px 18px; border-radius:10px; font-size:12.5px; opacity:0; transition:.25s; z-index:200; display:flex; align-items:center; gap:8px;}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+.toast .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+
+footer.note{text-align:center; color:var(--overlay0); font-size:11px; margin-top:36px; padding-top:20px; border-top:1px solid var(--surface0);}
 </style>
 </head>
 <body>
-<div class="app">
-<header class="topbar">
-  <div class="brand"><div class="logo">J</div> EXAM COMMAND CENTER <span class="badge">LOCAL APP</span></div>
-  <nav class="nav" id="nav"></nav>
-  <button class="primary" onclick="openChapter()">＋ Add Chapter</button>
-</header>
 
-<div class="card" style="margin-top:12px;border-color:#2d343f">
-  <b>🧩 Smart chapter deduplication</b>
-  <div class="sub">Shared chapters are stored once instead of appearing as separate JEE / IISER / NISER rows. Exam coverage is attached to the same chapter.</div>
-</div>
-
-<section class="hero">
- <div><div class="kicker">Three-exam preparation cockpit</div><h1>JEE Mains · IISER · NISER</h1><p>Track syllabus mastery, practice, PYQs, revisions, mock performance and mistakes from one interactive dashboard. Everything is saved locally in your browser.</p></div>
- <div class="hero-score"><div class="kpi-label">Overall Mastery</div><div class="scorebig" id="overall">0%</div><div class="rank" id="rank">D-Rank · Build the base</div></div>
-</section>
-
-<section class="kpis">
- <div class="card"><div class="kpi-label">Mastered</div><div class="kpi-value" id="mastered">0</div><div class="kpi-note">exam-ready chapters</div></div>
- <div class="card"><div class="kpi-label">In Progress</div><div class="kpi-value" id="progress">0</div><div class="kpi-note">active study queue</div></div>
- <div class="card"><div class="kpi-label">Priority</div><div class="kpi-value" id="priority">0</div><div class="kpi-note">S / A chapters</div></div>
- <div class="card"><div class="kpi-label">Due Revision</div><div class="kpi-value" id="due">0</div><div class="kpi-note">revision dates passed</div></div>
- <div class="card"><div class="kpi-label">Open Errors</div><div class="kpi-value" id="errors">0</div><div class="kpi-note">mistakes to eliminate</div></div>
-</section>
-
-<section class="exam-grid" id="examCards"></section>
-
-<div class="toolbar">
- <input class="search" id="search" placeholder="Search chapters, subjects, exams…" oninput="render()">
- <select class="select" id="examFilter" onchange="render()"><option>All Exams</option><option>JEE Mains</option><option>IISER</option><option>NISER</option></select>
- <select class="select" id="subjectFilter" onchange="render()"><option>All Subjects</option><option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Biology</option><option>Aptitude</option></select>
- <select class="select" id="priorityFilter" onchange="render()"><option>All Priority</option><option>S</option><option>A</option><option>B</option><option>C</option></select>
-</div>
-
-<div class="tabs">
- <button class="tab active" data-view="matrix">📚 Mastery Matrix</button>
- <button class="tab" data-view="board">🔥 Kanban</button>
- <button class="tab" data-view="mocks">🧪 Mock Lab</button>
- <button class="tab" data-view="errors">❌ Error Vault</button>
- <button class="tab" data-view="revision">🗓 Revision</button>
-</div>
-<div id="content" class="view"></div>
-<div class="footer">Exam Command Center · local-first · your data stays in this browser</div>
-</div>
-
-<div class="modal-back" id="modal"><div class="modal" id="modalBody"></div></div>
-<script>
-const seed=[
-["JEE Mains","Physics","Units & Measurements"],["JEE Mains","Physics","Kinematics"],["JEE Mains","Physics","Laws of Motion"],["JEE Mains","Physics","Work, Energy & Power"],["JEE Mains","Physics","Rotational Motion"],["JEE Mains","Physics","Gravitation"],["JEE Mains","Physics","Properties of Solids & Liquids"],["JEE Mains","Physics","Thermodynamics"],["JEE Mains","Physics","Kinetic Theory"],["JEE Mains","Physics","Oscillations & Waves"],["JEE Mains","Physics","Electrostatics"],["JEE Mains","Physics","Current Electricity"],["JEE Mains","Physics","Magnetic Effects of Current"],["JEE Mains","Physics","Electromagnetic Induction & AC"],["JEE Mains","Physics","Optics"],["JEE Mains","Physics","Dual Nature & Modern Physics"],["JEE Mains","Chemistry","Some Basic Concepts"],["JEE Mains","Chemistry","Atomic Structure"],["JEE Mains","Chemistry","Chemical Bonding"],["JEE Mains","Chemistry","Thermodynamics"],["JEE Mains","Chemistry","Equilibrium"],["JEE Mains","Chemistry","Redox Reactions"],["JEE Mains","Chemistry","Solutions"],["JEE Mains","Chemistry","Electrochemistry"],["JEE Mains","Chemistry","Chemical Kinetics"],["JEE Mains","Chemistry","Coordination Compounds"],["JEE Mains","Chemistry","p-Block Elements"],["JEE Mains","Chemistry","Organic Basics"],["JEE Mains","Chemistry","Hydrocarbons"],["JEE Mains","Chemistry","Alcohols, Phenols & Ethers"],["JEE Mains","Chemistry","Aldehydes, Ketones & Acids"],["JEE Mains","Chemistry","Amines"],["JEE Mains","Mathematics","Sets, Relations & Functions"],["JEE Mains","Mathematics","Complex Numbers"],["JEE Mains","Mathematics","Quadratic Equations"],["JEE Mains","Mathematics","Sequences & Series"],["JEE Mains","Mathematics","Permutations & Combinations"],["JEE Mains","Mathematics","Binomial Theorem"],["JEE Mains","Mathematics","Straight Lines"],["JEE Mains","Mathematics","Circles"],["JEE Mains","Mathematics","Limits, Continuity & Differentiability"],["JEE Mains","Mathematics","Integral Calculus"],["JEE Mains","Mathematics","Differential Equations"],["JEE Mains","Mathematics","Matrices & Determinants"],["JEE Mains","Mathematics","Vector Algebra"],["JEE Mains","Mathematics","3D Geometry"],["JEE Mains","Mathematics","Probability & Statistics"],
-["IISER","Physics","Mechanics"],["IISER","Physics","Electricity & Magnetism"],["IISER","Physics","Thermal Physics"],["IISER","Physics","Waves & Optics"],["IISER","Physics","Modern Physics"],["IISER","Chemistry","Atomic Structure"],["IISER","Chemistry","Chemical Bonding"],["IISER","Chemistry","Organic Chemistry"],["IISER","Chemistry","Physical Chemistry"],["IISER","Biology","Cell Biology"],["IISER","Biology","Genetics & Evolution"],["IISER","Biology","Plant & Animal Physiology"],["IISER","Biology","Ecology"],["IISER","Mathematics","Algebra"],["IISER","Mathematics","Calculus"],["IISER","Mathematics","Coordinate Geometry"],["IISER","Aptitude","Quantitative Reasoning"],["IISER","Aptitude","Logical Reasoning"],["IISER","Aptitude","Data Interpretation"],
-["NISER","Physics","Mechanics"],["NISER","Physics","Electrodynamics"],["NISER","Physics","Thermal Physics"],["NISER","Physics","Optics"],["NISER","Physics","Modern Physics"],["NISER","Chemistry","Physical Chemistry"],["NISER","Chemistry","Inorganic Chemistry"],["NISER","Chemistry","Organic Chemistry"],["NISER","Mathematics","Algebra"],["NISER","Mathematics","Calculus"],["NISER","Mathematics","Coordinate Geometry"],["NISER","Mathematics","Probability"],["NISER","Biology","Cell & Molecular Biology"],["NISER","Biology","Genetics"],["NISER","Biology","Ecology & Evolution"]
-];
-let chapters=JSON.parse(localStorage.getItem("ecc_chapters")||"null");
-const EXAMS=["JEE Mains","IISER","NISER"];
-
-function mergeDuplicateChapters(list){
-  const map=new Map();
-  for(const c of list){
-    const key=(c.subject+"|"+c.name).toLowerCase().trim();
-    if(!map.has(key)){
-      const exams=Array.isArray(c.exam)?c.exam:[String(c.exam||"JEE Mains")];
-      map.set(key,{...c,exam:[...new Set(exams.flatMap(e=>String(e).split(" · ")))],jeePyq:!!c.jeePyq,niserPyq:!!c.niserPyq,iiserPyq:!!c.iiserPyq});
-    }else{
-      const m=map.get(key);
-      const exams=Array.isArray(c.exam)?c.exam:[String(c.exam||"")];
-      m.exam=[...new Set([...m.exam,...exams.flatMap(e=>String(e).split(" · "))].filter(Boolean))];
-      ["notes","practice","jeePyq","niserPyq","iiserPyq","revision","mock"].forEach(k=>m[k]=!!m[k]||!!c[k]);
-      if((c.nextRevision||"") && (!m.nextRevision || c.nextRevision<m.nextRevision)) m.nextRevision=c.nextRevision;
-      if(["S","A","B","C"].indexOf(c.priority)<["S","A","B","C"].indexOf(m.priority)) m.priority=c.priority;
-    }
-  }
-  const result=[...map.values()];
-  result.forEach(syncStatus);
-  return result;
-}
-
-if(!chapters){
-  chapters=seed.map((x,i)=>({
-    id:Date.now()+i,exam:[x[0]],subject:x[1],name:x[2],
-    priority:["S","A","B","C"][i%4],status:"Not Started",
-    notes:i%9===0,practice:i%7===0,pyq:false,
-    jeePyq:i%13===0,niserPyq:i%17===0,iiserPyq:i%19===0,
-    revision:i%23===0,mock:i%29===0,
-    nextRevision:i%13===0?new Date(Date.now()+86400000*(i%20-5)).toISOString().slice(0,10):"",
-    weakness:""
-  }));
-}
-chapters=mergeDuplicateChapters(chapters);
-save();
-let mocks=JSON.parse(localStorage.getItem("ecc_mocks")||"[]"), errors=JSON.parse(localStorage.getItem("ecc_errors")||"[]"), currentView="matrix";
-function save(){localStorage.setItem("ecc_chapters",JSON.stringify(chapters));localStorage.setItem("ecc_mocks",JSON.stringify(mocks));localStorage.setItem("ecc_errors",JSON.stringify(errors))}
-function mastery(c){
-  const exams=Array.isArray(c.exam)?c.exam:[c.exam];
-  const pyqs=exams.map(e=>e==="JEE Mains"?c.jeePyq:e==="IISER"?c.iiserPyq:c.niserPyq);
-  const pyqReady=pyqs.length>0 && pyqs.every(Boolean);
-  return [c.notes,c.practice,pyqReady,c.revision,c.mock].filter(Boolean).length*20;
-}
-function syncStatus(c){let m=mastery(c);c.status=m===100?"Mastered":m>=60?"Strong":m>0?"In Progress":"Not Started"}
-function fmtDate(d){if(!d)return "—";return new Date(d+"T00:00:00").toLocaleDateString(undefined,{day:"2-digit",month:"short"})}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function renderNav(){document.getElementById("nav").innerHTML=["matrix","board","mocks","errors","revision"].map((v,i)=>`<button class="${currentView===v?"active":""}" onclick="setView('${v}')">${["Matrix","Kanban","Mocks","Errors","Revision"][i]}</button>`).join("")}
-function renderKPIs(){
- let avg=chapters.length?Math.round(chapters.reduce((a,c)=>a+mastery(c),0)/chapters.length):0;
- document.getElementById("overall").textContent=avg+"%";document.getElementById("rank").textContent=avg>=85?"S-Rank · Exam ready":avg>=65?"A-Rank · Strong":avg>=40?"B-Rank · Building":"D-Rank · Build the base";
- document.getElementById("mastered").textContent=chapters.filter(c=>mastery(c)===100).length;
- document.getElementById("progress").textContent=chapters.filter(c=>["In Progress","Strong"].includes(c.status)).length;
- document.getElementById("priority").textContent=chapters.filter(c=>["S","A"].includes(c.priority)).length;
- let today=new Date().toISOString().slice(0,10);document.getElementById("due").textContent=chapters.filter(c=>c.nextRevision&&c.nextRevision<=today).length;
- document.getElementById("errors").textContent=errors.filter(e=>!e.fixed).length;
- let exams=["JEE Mains","IISER","NISER"], cls=["orange","cyan","green"];
- document.getElementById("examCards").innerHTML=exams.map((e,i)=>{let arr=chapters.filter(c=>c.exam.includes(e)),p=arr.length?Math.round(arr.reduce((a,c)=>a+mastery(c),0)/arr.length):0;return `<div class="exam-card"><div class="exam-head"><div class="exam-title">${e}</div><div class="exam-pct">${p}%</div></div><div class="sub">${arr.filter(c=>mastery(c)===100).length}/${arr.length} chapters mastered</div><div class="bar"><div class="fill ${cls[i]}" style="width:${p}%"></div></div></div>`}).join("");
-}
-function filtered(){let q=document.getElementById("search").value.toLowerCase(),e=document.getElementById("examFilter").value,s=document.getElementById("subjectFilter").value,p=document.getElementById("priorityFilter").value;return chapters.filter(c=>(!q||`${c.name} ${c.subject} ${c.exam}`.toLowerCase().includes(q))&&(e==="All Exams"||c.exam.includes(e))&&(s==="All Subjects"||c.subject===s)&&(p==="All Priority"||c.priority===p))}
-function setView(v){currentView=v;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===v));render()}
-document.querySelectorAll(".tab").forEach(x=>x.onclick=()=>setView(x.dataset.view));
-function renderMatrix(arr){return `<div class="card" style="margin-bottom:10px">
-  <b>🧩 Cross-Exam PYQ Banks</b>
-  <div class="sub">Shared chapters appear only once. One chapter can cover JEE Mains, IISER and NISER together, while each exam’s PYQ bank stays independent.</div>
-  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px">
-    <span class="pill p-orange">JEE PYQs</span>
-    <span class="pill p-green">NISER PYQs</span>
-    <span class="pill p-blue">IISER PYQs</span>
+<div class="topband">
+  <div class="topband-inner">
+    <div class="brand">
+      <div class="brand-mark">🧭</div>
+      <div>
+        <h1>ASCENT — Prep Command Deck</h1>
+        <div class="sub">Physics · Chemistry · Mathematics · Biology, cross‑mapped for JEE Mains, IAT &amp; NEST 2027</div>
+        <div class="badges">
+          <span class="tag-pill tag-J">JEE MAINS</span>
+          <span class="tag-pill tag-I">IAT (IISER)</span>
+          <span class="tag-pill tag-N">NEST</span>
+        </div>
+      </div>
+    </div>
+    <div class="head-actions">
+      <button class="btn ghost" id="exportBtn" title="Export your progress as JSON">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+        Export
+      </button>
+      <button class="btn danger" id="resetBtn" title="Clear all tracked progress">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m-9 0l1 14h8l1-14"/></svg>
+        Reset
+      </button>
+      <button class="btn primary" id="addChapterBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+        Add Chapter
+      </button>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:0;">
+    <div class="tabs" id="tabs"></div>
   </div>
 </div>
-<div class="table-wrap"><table class="table"><thead><tr><th>Chapter</th><th>Exam</th><th>Priority</th><th>Notes</th><th>Practice</th><th>JEE PYQs</th><th>NISER PYQs</th><th>IISER PYQs</th><th>Revision</th><th>Mock</th><th>Mastery</th><th>Next</th><th></th></tr></thead><tbody>${arr.map(c=>`<tr><td><span class="chapter">${esc(c.name)}</span><span class="sub">${esc(c.subject)}</span></td><td><span class="pill ${c.exam.includes("JEE Mains")?"p-orange":c.exam.includes("IISER")?"p-blue":"p-green"}">${Array.isArray(c.exam)?c.exam.join(" · "):c.exam}</span></td><td><span class="pill ${c.priority==="S"?"p-red":c.priority==="A"?"p-orange":"p-gray"}">${c.priority}</span></td>${["notes","practice","jeePyq","niserPyq","iiserPyq","revision","mock"].map(k=>`<td><button class="check ${c[k]?"on":""}" onclick="toggle(${c.id},'${k}')">${c[k]?"✓":""}</button></td>`).join("")}<td><b class="pct">${mastery(c)}%</b><div class="bar mini-bar"><div class="fill ${mastery(c)>=80?"green":mastery(c)>=40?"orange":"cyan"}" style="width:${mastery(c)}%"></div></div></td><td>${fmtDate(c.nextRevision)}</td><td><button class="ghost" onclick="editChapter(${c.id})">✎</button></td></tr>`).join("")}</tbody></table></div>`}
-function renderBoard(arr){let sts=["Not Started","In Progress","Strong","Mastered"];return `<div class="board">${sts.map(s=>`<div class="col"><h3><span>${s}</span><span>${arr.filter(c=>c.status===s).length}</span></h3>${arr.filter(c=>c.status===s).map(c=>`<div class="task" onclick="editChapter(${c.id})"><div class="task-title">${esc(c.name)}</div><div class="task-meta">${Array.isArray(c.exam)?c.exam.join(" · "):c.exam} · ${c.subject}</div><div class="bar"><div class="fill ${c.exam.includes("JEE Mains")?"orange":c.exam.includes("IISER")?"cyan":"green"}" style="width:${mastery(c)}%"></div></div><div class="task-meta">${mastery(c)}% · Priority ${c.priority}</div></div>`).join("")}</div>`).join("")}</div>`}
-function renderMocks(){return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>🧪 Mock Lab</b><div class="sub">Log tests and turn scores into action.</div></div><button class="primary" onclick="openMock()">＋ Log Mock</button></div><div class="stats" style="margin-top:12px"><div class="card"><div class="kpi-label">Recent performance</div><div class="chart">${mocks.length?mocks.slice(-10).map(m=>`<div class="barcol"><div class="barlabel">${m.score}/${m.max}</div><div class="vbar" style="height:${Math.max(8,Math.round(m.score/m.max*170))}px"></div><div class="barlabel">${esc(m.exam)}</div></div>`).join(""):`<div style="color:#727988;margin:auto">No mocks logged yet.</div>`}</div></div><div class="card"><div class="kpi-label">Mock history</div>${mocks.length?mocks.slice().reverse().map((m,i)=>`<div style="padding:10px 0;border-bottom:1px solid #20232b"><b>${esc(m.name)}</b> <span class="pill p-gray">${m.exam}</span><div class="scoreline">${m.score}/${m.max} · ${Math.round(m.score/m.max*100)}% · ${fmtDate(m.date)} · ${esc(m.weakness||"No weakness logged")}</div></div>`).join(""):`<div class="sub" style="margin-top:12px">Your mock history will appear here.</div>`}</div></div></div>`}
-function renderErrors(){return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>❌ Error Vault</b><div class="sub">Every recurring mistake gets a cause, fix and retest.</div></div><button class="primary" onclick="openError()">＋ Log Error</button></div><div style="margin-top:12px">${errors.length?errors.slice().reverse().map(e=>`<div class="task" style="display:flex;justify-content:space-between;gap:10px"><div><b>${esc(e.mistake)}</b><div class="task-meta">${e.exam} · ${e.subject} · ${e.type}</div><div style="margin-top:7px;color:#aeb4c0;font-size:12px">Cause: ${esc(e.cause||"—")} · Fix: ${esc(e.fix||"—")}</div></div><button class="ghost" onclick="fixError(${e.id})">${e.fixed?"✓ Fixed":"Mark fixed"}</button></div>`).join(""):`<div class="sub" style="margin-top:15px">No errors logged. Keep it that way.</div>`}</div></div>`}
-function renderRevision(arr){arr=arr.filter(c=>c.nextRevision);arr.sort((a,b)=>a.nextRevision.localeCompare(b.nextRevision));return `<div class="card"><b>🗓 Revision Queue</b><div class="sub">Chapters ordered by the next scheduled revision.</div><div style="margin-top:12px">${arr.length?arr.map(c=>`<div class="task" onclick="editChapter(${c.id})"><div style="display:flex;justify-content:space-between"><b>${esc(c.name)}</b><span class="pill ${c.nextRevision<=new Date().toISOString().slice(0,10)?"p-red":"p-blue"}">${fmtDate(c.nextRevision)}</span></div><div class="task-meta">${Array.isArray(c.exam)?c.exam.join(" · "):c.exam} · ${c.subject} · ${mastery(c)}% mastery</div></div>`).join(""):`<div class="sub" style="margin-top:12px">Set a Next Revision date on chapters to build this queue.</div>`}</div></div>`}
-function render(){renderNav();renderKPIs();let arr=filtered();let c=document.getElementById("content");if(currentView==="matrix")c.innerHTML=renderMatrix(arr);if(currentView==="board")c.innerHTML=renderBoard(arr);if(currentView==="mocks")c.innerHTML=renderMocks();if(currentView==="errors")c.innerHTML=renderErrors();if(currentView==="revision")c.innerHTML=renderRevision(arr)}
-function toggle(id,k){let c=chapters.find(x=>x.id===id);c[k]=!c[k];syncStatus(c);save();render()}
-function openChapter(id=null){let c=id?chapters.find(x=>x.id===id):null;document.getElementById("modalBody").innerHTML=`<h2>${c?"Edit Chapter":"Add Chapter"}</h2><div class="form"><div class="field"><label>Chapter</label><input id="f_name" value="${esc(c?.name||"")}"></div><div class="field"><label>Exam</label><select id="f_exam">${["JEE Mains","IISER","NISER","JEE Mains · IISER · NISER"].map(x=>`<option ${((Array.isArray(c?.exam)?c.exam.join(" · "):c?.exam)||"JEE Mains")===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Subject</label><select id="f_subject">${["Physics","Chemistry","Mathematics","Biology","Aptitude"].map(x=>`<option ${c?.subject===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Priority</label><select id="f_priority">${["S","A","B","C"].map(x=>`<option ${c?.priority===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Next Revision</label><input type="date" id="f_date" value="${c?.nextRevision||""}"></div><div class="field full"><label>Weakness / note</label><textarea id="f_note">${esc(c?.weakness||"")}</textarea></div></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button>${c?`<button class="ghost" onclick="deleteChapter(${c.id})">Delete</button>`:""}<button class="primary" onclick="saveChapter(${c?.id||0})">Save Chapter</button></div>`;document.getElementById("modal").classList.add("show")}
-function editChapter(id){openChapter(id)}
-function saveChapter(id){let c=id&&chapters.find(x=>x.id===id);if(!c){c={id:Date.now(),notes:false,practice:false,pyq:false,jeePyq:false,niserPyq:false,iiserPyq:false,revision:false,mock:false,status:"Not Started"};chapters.push(c)}Object.assign(c,{name:document.getElementById("f_name").value.trim()||"Untitled",exam:document.getElementById("f_exam").value==="JEE Mains · IISER · NISER"?["JEE Mains","IISER","NISER"]:[document.getElementById("f_exam").value],subject:document.getElementById("f_subject").value,priority:document.getElementById("f_priority").value,nextRevision:document.getElementById("f_date").value,weakness:document.getElementById("f_note").value});syncStatus(c);save();closeModal();render()}
-function deleteChapter(id){if(confirm("Delete this chapter?")){chapters=chapters.filter(c=>c.id!==id);save();closeModal();render()}}
-function openMock(){document.getElementById("modalBody").innerHTML=`<h2>Log Mock Test</h2><div class="form"><div class="field"><label>Mock name</label><input id="m_name" placeholder="JEE Full Test 01"></div><div class="field"><label>Exam</label><select id="m_exam"><option>JEE Mains</option><option>IISER</option><option>NISER</option></select></div><div class="field"><label>Date</label><input type="date" id="m_date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>Score</label><input type="number" id="m_score"></div><div class="field"><label>Max Score</label><input type="number" id="m_max" value="300"></div><div class="field full"><label>Weakness / next action</label><textarea id="m_weakness"></textarea></div></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveMock()">Save Mock</button></div>`;document.getElementById("modal").classList.add("show")}
-function saveMock(){mocks.push({id:Date.now(),name:document.getElementById("m_name").value||"Untitled Mock",exam:document.getElementById("m_exam").value,date:document.getElementById("m_date").value,score:+document.getElementById("m_score").value||0,max:+document.getElementById("m_max").value||1,weakness:document.getElementById("m_weakness").value});save();closeModal();render()}
-function openError(){document.getElementById("modalBody").innerHTML=`<h2>Log Mistake</h2><div class="form"><div class="field"><label>Mistake</label><input id="e_name" placeholder="Forgot sign in integration"></div><div class="field"><label>Exam</label><select id="e_exam"><option>JEE Mains</option><option>IISER</option><option>NISER</option></select></div><div class="field"><label>Subject</label><select id="e_subject">${["Physics","Chemistry","Mathematics","Biology","Aptitude"].map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>Type</label><select id="e_type">${["Concept","Formula","Calculation","Misread","Guess","Time","Strategy"].map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field full"><label>Cause</label><textarea id="e_cause"></textarea></div><div class="field full"><label>Fix</label><textarea id="e_fix"></textarea></div></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveError()">Save Error</button></div>`;document.getElementById("modal").classList.add("show")}
-function saveError(){errors.push({id:Date.now(),mistake:document.getElementById("e_name").value||"Unnamed mistake",exam:document.getElementById("e_exam").value,subject:document.getElementById("e_subject").value,type:document.getElementById("e_type").value,cause:document.getElementById("e_cause").value,fix:document.getElementById("e_fix").value,fixed:false});save();closeModal();render()}
-function fixError(id){let e=errors.find(x=>x.id===id);e.fixed=!e.fixed;save();render()}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
-render();
+
+<main>
+  <div class="wrap" id="app"></div>
+</main>
+
+<div class="modal-backdrop" id="chapterModalBackdrop">
+  <div class="modal">
+    <h3>Add a chapter</h3>
+    <div class="field">
+      <label>Subject</label>
+      <select id="mSubject"></select>
+    </div>
+    <div class="field">
+      <label>Unit / topic group</label>
+      <input type="text" id="mUnit" placeholder="e.g. Modern Physics">
+    </div>
+    <div class="field">
+      <label>Chapter name</label>
+      <input type="text" id="mName" placeholder="e.g. Nuclear Physics — Extra PYQ Set">
+    </div>
+    <div class="field">
+      <label>Relevant exams</label>
+      <div class="chip-select" id="mTags"></div>
+    </div>
+    <div class="field">
+      <label>Priority tier (your own estimate)</label>
+      <select id="mTier">
+        <option value="S">S — Must Master</option>
+        <option value="A">A — High Priority</option>
+        <option value="B" selected>B — Solid Scorer</option>
+        <option value="C">C — Low Frequency</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="mCancel">Cancel</button>
+      <button class="btn primary" id="mSave">Add chapter</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="noteModalBackdrop">
+  <div class="modal">
+    <h3 id="noteModalTitle">Chapter note</h3>
+    <div class="field">
+      <label>Personal note / flagged doubts</label>
+      <textarea id="noteText" placeholder="e.g. Revisit rotational KE derivation, weak on frame transitions..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="noteCancel">Cancel</button>
+      <button class="btn primary" id="noteSave">Save note</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Saved</span></div>
+
+<script>
+/* ============================= DATA ============================= */
+const COLORS = {blue:'#89b4fa', mauve:'#cba6f7', green:'#a6e3a1', peach:'#fab387', yellow:'#f9e2af', red:'#f38ba8', teal:'#94e2d5', sky:'#89dceb', pink:'#f5c2e7', lavender:'#b4befe', overlay:'#7f849c'};
+
+function ch(name, tags, tier){ return {name, tags, tier: tier||'B'}; }
+const ALL = ['J','I','N'];
+const IN_ONLY = ['I','N'];
+const TIER_INFO = {
+  S:{label:'S', name:'S-Tier — Must Master', color:'red', desc:'Asked in nearly every session, multiple questions each year.'},
+  A:{label:'A', name:'A-Tier — High Priority', color:'peach', desc:'Consistently asked, 1–2 questions most sessions.'},
+  B:{label:'B', name:'B-Tier — Solid Scorer', color:'sky', desc:'Appears regularly but less predictably; good ROI once core is done.'},
+  C:{label:'C', name:'C-Tier — Low Frequency', color:'overlay', desc:'Occasional questions — cover after higher tiers are locked in.'}
+};
+const TIER_ORDER = {S:0,A:1,B:2,C:3};
+
+const SUBJECT_DEFS = [
+  {
+    id:'physics', name:'Physics', icon:'⚛️', accent:'blue', defaultTags:ALL,
+    tagline:'Mechanics through Modern Physics — identical core for all three exams.',
+    units:[
+      {name:'Mechanics', chapters:[
+        ch('Units & Measurements',ALL,'B'), ch('Kinematics',ALL,'A'), ch('Laws of Motion',ALL,'A'),
+        ch('Work, Energy & Power',ALL,'A'), ch('System of Particles & Rotational Motion',ALL,'S'),
+        ch('Gravitation',ALL,'B'), ch('Mechanical Properties of Solids & Fluids',ALL,'A'), ch('Oscillations & Waves',ALL,'B')
+      ]},
+      {name:'Thermal Physics', chapters:[
+        ch('Thermal Properties of Matter',ALL,'B'), ch('Thermodynamics',ALL,'A'), ch('Kinetic Theory of Gases',ALL,'A')
+      ]},
+      {name:'Electricity & Magnetism', chapters:[
+        ch('Electrostatics',ALL,'S'), ch('Current Electricity',ALL,'S'), ch('Moving Charges & Magnetism',ALL,'S'),
+        ch('Magnetism & Matter',ALL,'B'), ch('Electromagnetic Induction',ALL,'A'), ch('Alternating Current',ALL,'A'),
+        ch('Electromagnetic Waves',ALL,'C')
+      ]},
+      {name:'Optics & Modern Physics', chapters:[
+        ch('Ray Optics & Optical Instruments',ALL,'S'), ch('Wave Optics',ALL,'A'), ch('Dual Nature of Radiation & Matter',ALL,'A'),
+        ch('Atoms',ALL,'B'), ch('Nuclei',ALL,'B'), ch('Semiconductor Electronics',ALL,'A'), ch('Experimental Skills',ALL,'C')
+      ]}
+    ]
+  },
+  {
+    id:'chemistry', name:'Chemistry', icon:'🧪', accent:'green', defaultTags:ALL,
+    tagline:'Physical, Inorganic & Organic — full syllabus overlap across JEE / IAT / NEST.',
+    units:[
+      {name:'Physical Chemistry', chapters:[
+        ch('Some Basic Concepts of Chemistry',ALL,'A'), ch('Structure of Atom',ALL,'A'), ch('Chemical Bonding & Molecular Structure',ALL,'S'),
+        ch('States of Matter (Gaseous & Liquid)',ALL,'A'), ch('Chemical Thermodynamics',ALL,'S'), ch('Equilibrium',ALL,'S'),
+        ch('Redox Reactions',ALL,'B'), ch('Electrochemistry',ALL,'A'), ch('Chemical Kinetics',ALL,'A'), ch('Solutions',ALL,'A')
+      ]},
+      {name:'Inorganic Chemistry', chapters:[
+        ch('Classification of Elements & Periodicity',ALL,'A'), ch('General Principles of Metallurgy',ALL,'B'), ch('Hydrogen',ALL,'B'),
+        ch('s-Block Elements',ALL,'A'), ch('p-Block Elements',ALL,'S'), ch('d and f Block Elements',ALL,'A'),
+        ch('Coordination Compounds',ALL,'S'), ch('Environmental Chemistry',ALL,'C')
+      ]},
+      {name:'Organic Chemistry', chapters:[
+        ch('Purification & Characterisation of Organic Compounds',ALL,'C'), ch('Basic Principles of Organic Chemistry',ALL,'S'),
+        ch('Hydrocarbons',ALL,'A'), ch('Organic Compounds Containing Halogens',ALL,'B'), ch('Alcohols, Phenols & Ethers',ALL,'B'),
+        ch('Aldehydes, Ketones & Carboxylic Acids',ALL,'S'), ch('Organic Compounds Containing Nitrogen',ALL,'A'),
+        ch('Biomolecules',ALL,'A'), ch('Polymers',ALL,'B'), ch('Chemistry in Everyday Life',ALL,'B')
+      ]}
+    ]
+  },
+  {
+    id:'mathematics', name:'Mathematics', icon:'📐', accent:'peach', defaultTags:ALL,
+    tagline:'Algebra to Vectors — shared quantitative core across all three exams.',
+    units:[
+      {name:'Algebra', chapters:[
+        ch('Sets, Relations & Functions',ALL,'B'), ch('Complex Numbers & Quadratic Equations',ALL,'A'), ch('Matrices & Determinants',ALL,'S'),
+        ch('Permutations & Combinations',ALL,'A'), ch('Binomial Theorem',ALL,'A'), ch('Sequences & Series',ALL,'S'),
+        ch('Mathematical Reasoning',ALL,'C'), ch('Statistics & Probability',ALL,'A')
+      ]},
+      {name:'Calculus', chapters:[
+        ch('Limits, Continuity & Differentiability',ALL,'A'), ch('Application of Derivatives',ALL,'S'), ch('Indefinite Integration',ALL,'A'),
+        ch('Definite Integration & Area Under Curves',ALL,'S'), ch('Differential Equations',ALL,'A')
+      ]},
+      {name:'Coordinate Geometry', chapters:[
+        ch('Straight Lines',ALL,'A'), ch('Circles',ALL,'B'), ch('Conic Sections (Parabola, Ellipse, Hyperbola)',ALL,'S')
+      ]},
+      {name:'Trigonometry', chapters:[
+        ch('Trigonometric Ratios & Identities',ALL,'B'), ch('Trigonometric Equations',ALL,'A'),
+        ch('Inverse Trigonometric Functions',ALL,'B'), ch('Properties of Triangles',ALL,'B')
+      ]},
+      {name:'Vectors & 3D Geometry', chapters:[
+        ch('Vector Algebra',ALL,'A'), ch('Three Dimensional Geometry',ALL,'S')
+      ]}
+    ]
+  },
+  {
+    id:'biology', name:'Biology', icon:'🧬', accent:'mauve', defaultTags:IN_ONLY,
+    tagline:'IAT & NEST only — not on the JEE Mains syllabus.',
+    units:[
+      {name:'Diversity & Structural Organisation', chapters:[
+        ch('Diversity in Living World',IN_ONLY,'C'), ch('Structural Organisation in Animals',IN_ONLY,'B'),
+        ch('Structural Organisation in Plants',IN_ONLY,'B'), ch('Anatomy of Flowering Plants',IN_ONLY,'C')
+      ]},
+      {name:'Cell Biology, Genetics & Evolution', chapters:[
+        ch('Cell: The Unit of Life',IN_ONLY,'B'), ch('Cell Cycle & Cell Division',IN_ONLY,'B'), ch('Biomolecules',IN_ONLY,'B'),
+        ch('Principles of Inheritance & Variation',IN_ONLY,'S'), ch('Molecular Basis of Inheritance',IN_ONLY,'S'), ch('Evolution',IN_ONLY,'A')
+      ]},
+      {name:'Plant & Human Physiology', chapters:[
+        ch('Photosynthesis in Higher Plants',IN_ONLY,'A'), ch('Respiration in Plants',IN_ONLY,'A'), ch('Plant Growth & Development',IN_ONLY,'B'),
+        ch('Breathing & Exchange of Gases',IN_ONLY,'A'), ch('Body Fluids & Circulation',IN_ONLY,'A'), ch('Excretory Products & their Elimination',IN_ONLY,'A'),
+        ch('Locomotion & Movement',IN_ONLY,'B'), ch('Neural Control & Coordination',IN_ONLY,'S'), ch('Chemical Coordination & Integration',IN_ONLY,'S'),
+        ch('Digestion & Absorption',IN_ONLY,'A')
+      ]},
+      {name:'Reproduction & Biotechnology', chapters:[
+        ch('Reproduction in Organisms',IN_ONLY,'B'), ch('Sexual Reproduction in Flowering Plants',IN_ONLY,'B'), ch('Human Reproduction',IN_ONLY,'S'),
+        ch('Reproductive Health',IN_ONLY,'A'), ch('Biotechnology: Principles & Processes',IN_ONLY,'A'), ch('Biotechnology & its Applications',IN_ONLY,'A')
+      ]},
+      {name:'Ecology & Environment', chapters:[
+        ch('Organisms & Populations',IN_ONLY,'A'), ch('Ecosystem',IN_ONLY,'S'), ch('Biodiversity & Conservation',IN_ONLY,'A'), ch('Environmental Issues',IN_ONLY,'B')
+      ]}
+    ]
+  }
+];
+
+// assign stable ids
+SUBJECT_DEFS.forEach(s=>{
+  s.units.forEach((u,ui)=>{
+    u.chapters.forEach((c,ci)=>{ c.id = s.id+'-'+ui+'-'+ci; c.custom=false; c.unit=u.name; c.subject=s.id; });
+  });
+});
+
+const STAGES = [
+  {key:'n', label:'Notes', full:'Concept Notes'},
+  {key:'d', label:'DPP', full:'Daily Practice Problems'},
+  {key:'p', label:'PYQ', full:'Previous Year Questions'},
+  {key:'r1', label:'R1', full:'Revision Round 1'},
+  {key:'r2', label:'R2', full:'Revision Round 2'},
+  {key:'r3', label:'R3', full:'Revision Round 3'}
+];
+
+const EXAM_DATES = {
+  J:{label:'JEE MAINS', date:new Date('2027-01-24'), color:'blue'},
+  I:{label:'IAT', date:new Date('2027-06-01'), color:'mauve'},
+  N:{label:'NEST', date:new Date('2027-06-20'), color:'green'}
+};
+
+/* ============================= STATE ============================= */
+let progress = {};      // chapterId -> {n,d,p,r1,r2,r3,flag,note}
+let customChapters = {}; // subjectId -> [chapter,...]
+let activeTab = 'overview';
+let storageOk = true;
+
+function defaultProgress(){ return {n:false,d:false,p:false,r1:false,r2:false,r3:false,flag:false,note:''}; }
+
+function getProg(id){
+  if(!progress[id]) progress[id] = defaultProgress();
+  return progress[id];
+}
+
+function mastery(id){
+  const p = getProg(id);
+  const total = STAGES.reduce((a,s)=> a + (p[s.key]?1:0), 0);
+  return Math.round((total/STAGES.length)*100);
+}
+
+function allChaptersOf(subjectId){
+  const def = SUBJECT_DEFS.find(s=>s.id===subjectId);
+  let list = [];
+  def.units.forEach(u=>{ list = list.concat(u.chapters); });
+  (customChapters[subjectId]||[]).forEach(c=> list.push(c));
+  return list;
+}
+
+function allChaptersEverywhere(){
+  let list = [];
+  SUBJECT_DEFS.forEach(s=> list = list.concat(allChaptersOf(s.id)));
+  return list;
+}
+
+/* ============================= STORAGE ============================= */
+async function loadState(){
+  try{
+    const r = await window.storage.get('progress', false);
+    if(r && r.value) progress = JSON.parse(r.value);
+  }catch(e){ /* key not found or storage unavailable */ }
+  try{
+    const r2 = await window.storage.get('custom_chapters', false);
+    if(r2 && r2.value) customChapters = JSON.parse(r2.value);
+  }catch(e){ }
+  try{ await window.storage.list('', false); }catch(e){ storageOk = false; }
+}
+
+async function saveProgress(){
+  try{ await window.storage.set('progress', JSON.stringify(progress), false); }
+  catch(e){ storageOk = false; }
+}
+async function saveCustom(){
+  try{ await window.storage.set('custom_chapters', JSON.stringify(customChapters), false); }
+  catch(e){ storageOk = false; }
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=> t.classList.remove('show'), 1800);
+}
+
+/* ============================= HELPERS ============================= */
+function pctColor(pct){
+  if(pct>=67) return COLORS.green;
+  if(pct>=34) return COLORS.yellow;
+  if(pct>0) return COLORS.peach;
+  return '#585b70';
+}
+function tagPill(t){
+  const map = {J:'tag-J', I:'tag-I', N:'tag-N'};
+  return `<span class="tag-pill ${map[t]}">${t}</span>`;
+}
+function daysUntil(date){
+  const now = new Date('2026-08-29');
+  return Math.max(0, Math.ceil((date-now)/(1000*60*60*24)));
+}
+function avgMastery(chapters){
+  if(!chapters.length) return 0;
+  return Math.round(chapters.reduce((a,c)=>a+mastery(c.id),0)/chapters.length);
+}
+function priorityScore(c){
+  // Higher = more urgent: high tier weight combined with how far from mastered.
+  const tierWeight = {S:4, A:3, B:2, C:1}[c.tier] || 1;
+  return tierWeight * (100 - mastery(c.id));
+}
+function filterByTag(chapters, tag){
+  if(tag==='ALL') return chapters;
+  return chapters.filter(c=>c.tags.includes(tag));
+}
+function fmtInt(n){ return String(n); }
+
+/* ============================= RENDER: TABS ============================= */
+function renderTabs(){
+  const tabs = document.getElementById('tabs');
+  const defs = [{id:'overview', name:'Overview', icon:'🧭', accent:null}].concat(
+    SUBJECT_DEFS.map(s=>({id:s.id, name:s.name, icon:s.icon, accent:s.accent}))
+  );
+  tabs.innerHTML = defs.map(d=>{
+    const active = activeTab===d.id ? 'active' : '';
+    let pctHtml = '';
+    if(d.id!=='overview'){
+      const pct = avgMastery(allChaptersOf(d.id));
+      pctHtml = `<span class="dot" style="background:${COLORS[d.accent]}"></span><span class="pct">${pct}%</span>`;
+    }
+    return `<button class="tab ${active}" data-tab="${d.id}">${d.icon} ${d.name} ${pctHtml}</button>`;
+  }).join('');
+  tabs.querySelectorAll('.tab').forEach(b=>{
+    b.addEventListener('click', ()=>{ activeTab = b.dataset.tab; renderApp(); });
+  });
+}
+
+/* ============================= RENDER: OVERVIEW ============================= */
+function ring(cx, cy, r, pct, color, width){
+  const circ = 2*Math.PI*r;
+  const dash = circ*pct/100;
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--surface0)" stroke-width="${width}"/>
+  <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round"
+    stroke-dasharray="${dash} ${circ}"/>`;
+}
+
+function renderOverview(){
+  const all = allChaptersEverywhere();
+  const overall = avgMastery(all);
+  const jeeSet = filterByTag(all,'J'); const iatSet = filterByTag(all,'I'); const nestSet = filterByTag(all,'N');
+  const jeeP = avgMastery(jeeSet), iatP = avgMastery(iatSet), nestP = avgMastery(nestSet);
+
+  const mastered = all.filter(c=>mastery(c.id)>=67).length;
+  const inProgress = all.filter(c=>{const m=mastery(c.id); return m>0 && m<67;}).length;
+  const notStarted = all.filter(c=>mastery(c.id)===0).length;
+  const flagged = all.filter(c=>getProg(c.id).flag).length;
+  const sTier = all.filter(c=>c.tier==='S');
+  const sTierMastery = avgMastery(sTier);
+
+  const cds = Object.entries(EXAM_DATES).map(([k,v])=>{
+    const d = daysUntil(v.date);
+    return `<div class="cd-card" style="border-color:rgba(0,0,0,0)">
+      <div class="exam" style="color:${COLORS[v.color]}">${v.label}</div>
+      <div class="days">${d}<span> days</span></div>
+      <div class="date">~ ${v.date.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})} (est.)</div>
+    </div>`;
+  }).join('');
+
+  const R = 118, cx=140, cy=140;
+  const compassSvg = `<svg viewBox="0 0 280 280">
+    ${ring(cx,cy,R,jeeP,COLORS.blue,10)}
+    ${ring(cx,cy,R-16,iatP,COLORS.mauve,10)}
+    ${ring(cx,cy,R-32,nestP,COLORS.green,10)}
+  </svg>`;
+
+  const focusList = [...all].sort((a,b)=>priorityScore(b)-priorityScore(a)).slice(0,3);
+
+  document.getElementById('app').innerHTML = `
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">2027 exam cycle</div>
+      <h2>Every syllabus, one mastery map.</h2>
+      <p>Physics, Chemistry and Mathematics feed all three exams identically. Biology is tracked separately for IAT and NEST. Progress persists across sessions — check things off as you actually clear them, not as you plan to.</p>
+      <div class="countdowns">${cds}</div>
+    </div>
+    <div class="compass-wrap" style="display:flex; align-items:center;">
+      <div class="compass">
+        ${compassSvg}
+        <div class="compass-center">
+          <div class="big">${overall}%</div>
+          <div class="lbl">Overall syllabus mastery</div>
+        </div>
+      </div>
+      <div class="compass-legend">
+        <div class="compass-row"><div class="leg-item"><span class="sw" style="background:${COLORS.blue}"></span>JEE Mains <b>${jeeP}%</b></div></div>
+        <div class="compass-row"><div class="leg-item"><span class="sw" style="background:${COLORS.mauve}"></span>IAT <b>${iatP}%</b></div></div>
+        <div class="compass-row"><div class="leg-item"><span class="sw" style="background:${COLORS.green}"></span>NEST <b>${nestP}%</b></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    ${statCard('🌐','Overall Mastery', overall+'%', 'Across '+all.length+' tracked chapters', overall, COLORS.mauve)}
+    ${statCard('✅','Mastered (≥67%)', fmtInt(mastered), 'Notes, DPP, PYQ + revisions cleared', Math.round(mastered/all.length*100), COLORS.green)}
+    ${statCard('⚡','In Progress', fmtInt(inProgress), 'Actively being worked through', Math.round(inProgress/all.length*100), COLORS.peach)}
+    ${statCard('⭘','Not Started', fmtInt(notStarted), 'Untouched chapters remaining', Math.round(notStarted/all.length*100), COLORS.overlay1||'#7f849c')}
+    ${statCard('🔖','Flagged', fmtInt(flagged), 'Marked for doubt-clearing / revisit', Math.round((flagged/(all.length||1))*100), COLORS.yellow)}
+    ${statCard('🔥','S-Tier Mastery', sTierMastery+'%', sTier.length+' must-master chapters, all exams', sTierMastery, COLORS.red)}
+  </div>
+
+  <div class="unit-grid">
+    ${SUBJECT_DEFS.map(s=>{
+      const chs = allChaptersOf(s.id);
+      const p = avgMastery(chs);
+      return `<div class="unit-card" data-goto="${s.id}">
+        <div class="icon-badge" style="background:${hexA(COLORS[s.accent],0.15)}; color:${COLORS[s.accent]}">${s.icon}</div>
+        <div class="top">
+          <div><div class="name">${s.name}</div><div class="cnt">${chs.length} chapters · ${s.defaultTags.join(' / ')}</div></div>
+          <div class="pct" style="color:${COLORS[s.accent]}">${p}%</div>
+        </div>
+        <div class="mini-bar"><i style="width:${p}%; background:${COLORS[s.accent]}"></i></div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <div class="focus-panel">
+    <h3>🎯 Focus next — highest priority, least mastered</h3>
+    <div class="focus-list">
+      ${focusList.map(c=>{
+        const m = mastery(c.id);
+        const subj = SUBJECT_DEFS.find(s=>s.id===c.subject);
+        const tinfo = TIER_INFO[c.tier];
+        return `<div class="focus-item">
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <span class="tier-badge" style="background:${hexA(COLORS[tinfo.color],0.18)}; color:${COLORS[tinfo.color]}">${c.tier}</span>
+            <div><div class="fn">${c.name}</div><div class="fs">${subj.icon} ${subj.name} · ${c.unit}</div></div>
+          </div>
+          <div class="fp" style="color:${pctColor(m)}">${m}%</div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>
+
+  <footer class="note">Exam dates are estimates for planning only — confirm official 2027 notifications from NTA (JEE), IISER (IAT) and NISER (NEST) closer to the date.</footer>
+  `;
+
+  document.querySelectorAll('.unit-card[data-goto]').forEach(el=>{
+    el.addEventListener('click', ()=>{ activeTab = el.dataset.goto; renderApp(); });
+  });
+}
+
+function hexA(hex, alpha){
+  // hex like #rrggbb -> rgba string
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function statCard(icon,label,val,cap,barPct,color){
+  return `<div class="stat-card">
+    <div class="icon" style="background:${hexA(color,0.15)}; color:${color}">${icon}</div>
+    <div class="lbl">${label}</div>
+    <div class="val">${val}</div>
+    <div class="cap">${cap}</div>
+    <div class="mini-bar"><i style="width:${Math.min(100,Math.max(0,barPct))}%; background:${color}"></i></div>
+  </div>`;
+}
+
+/* ============================= SUBJECT STATE (filters) ============================= */
+const subjState = {}; // subjectId -> {search, exam, unit, sort}
+function getSubjState(id){
+  if(!subjState[id]) subjState[id] = {search:'', exam:'ALL', unit:'ALL', tier:'ALL', sort:'unit'};
+  return subjState[id];
+}
+
+/* ============================= RENDER: SUBJECT PAGE ============================= */
+function renderSubject(subjId){
+  const def = SUBJECT_DEFS.find(s=>s.id===subjId);
+  const st = getSubjState(subjId);
+  const allChs = allChaptersOf(subjId);
+
+  const overall = avgMastery(allChs);
+  const mastered = allChs.filter(c=>mastery(c.id)>=67).length;
+  const inProgress = allChs.filter(c=>{const m=mastery(c.id); return m>0 && m<67;}).length;
+  const notStarted = allChs.filter(c=>mastery(c.id)===0).length;
+  const flagged = allChs.filter(c=>getProg(c.id).flag).length;
+  const sTierChs = allChs.filter(c=>c.tier==='S');
+  const sTierMastery = avgMastery(sTierChs);
+
+  // unit cards
+  const unitCards = def.units.map(u=>{
+    const p = avgMastery(u.chapters);
+    return `<div class="unit-card" data-unit="${u.name}">
+      <div class="icon-badge" style="background:${hexA(COLORS[def.accent],0.15)}; color:${COLORS[def.accent]}">▤</div>
+      <div class="top">
+        <div><div class="name">${u.name}</div><div class="cnt">${u.chapters.length} chapters</div></div>
+        <div class="pct" style="color:${COLORS[def.accent]}">${p}%</div>
+      </div>
+      <div class="mini-bar"><i style="width:${p}%; background:${COLORS[def.accent]}"></i></div>
+    </div>`;
+  }).join('');
+
+  // milestone coverage
+  const milestoneHtml = STAGES.map(s=>{
+    const done = allChs.filter(c=>getProg(c.id)[s.key]).length;
+    const pct = allChs.length ? Math.round(done/allChs.length*100) : 0;
+    return `<div class="m-item" title="${s.full}">
+      <span>${s.label}</span>
+      <div class="m-track"><i style="width:${pct}%; background:${COLORS[def.accent]}"></i></div>
+      <b>${pct}%</b><span class="frac">(${done}/${allChs.length})</span>
+    </div>`;
+  }).join('');
+
+  // filter + sort chapter list, grouped by unit for display
+  const examFilter = st.exam;
+  const unitOptions = def.units.map(u=>u.name);
+
+  document.getElementById('app').innerHTML = `
+  <div class="subj-head">
+    <div class="left">
+      <div class="subj-icon" style="background:${hexA(COLORS[def.accent],0.15)}; color:${COLORS[def.accent]}">${def.icon}</div>
+      <div>
+        <h2>${def.name} Syllabus Tracker</h2>
+        <p>${def.tagline}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    ${statCard('🌐','Mastery Index', overall+'%', `Avg. across ${allChs.length} chapters`, overall, COLORS[def.accent])}
+    ${statCard('✅','Mastered (≥67%)', fmtInt(mastered), 'Notes, DPP, PYQ & revisions cleared', Math.round(mastered/(allChs.length||1)*100), COLORS.green)}
+    ${statCard('⚡','In Progress', fmtInt(inProgress), 'Active solving & problem practice', Math.round(inProgress/(allChs.length||1)*100), COLORS.peach)}
+    ${statCard('⭘','Not Started', fmtInt(notStarted), 'Pending lecture coverage', Math.round(notStarted/(allChs.length||1)*100), '#7f849c')}
+    ${statCard('🔖','Flagged', fmtInt(flagged), 'Marked doubts / revisit notes', Math.round((flagged/(allChs.length||1))*100), COLORS.yellow)}
+    ${statCard('🔥','S-Tier Mastery', sTierMastery+'%', sTierChs.length+' must-master chapters here', sTierMastery, COLORS.red)}
+  </div>
+
+  <div class="unit-grid">${unitCards}</div>
+
+  <div class="filter-bar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Search ${def.name.toLowerCase()} chapter..." value="${st.search}">
+    </div>
+    <select class="fbtn" id="examFilter">
+      <option value="ALL" ${examFilter==='ALL'?'selected':''}>All Exams</option>
+      <option value="J" ${examFilter==='J'?'selected':''}>JEE Mains only</option>
+      <option value="I" ${examFilter==='I'?'selected':''}>IAT only</option>
+      <option value="N" ${examFilter==='N'?'selected':''}>NEST only</option>
+    </select>
+    <select class="fbtn" id="unitFilter">
+      <option value="ALL">All Units</option>
+      ${unitOptions.map(u=>`<option value="${u}" ${st.unit===u?'selected':''}>${u}</option>`).join('')}
+      ${customChapters[subjId] && customChapters[subjId].length ? `<option value="Custom" ${st.unit==='Custom'?'selected':''}>Custom</option>`:''}
+    </select>
+    <select class="fbtn" id="tierFilter">
+      <option value="ALL" ${st.tier==='ALL'?'selected':''}>All Tiers</option>
+      <option value="S" ${st.tier==='S'?'selected':''}>S-Tier only</option>
+      <option value="A" ${st.tier==='A'?'selected':''}>A-Tier only</option>
+      <option value="B" ${st.tier==='B'?'selected':''}>B-Tier only</option>
+      <option value="C" ${st.tier==='C'?'selected':''}>C-Tier only</option>
+    </select>
+    <select class="fbtn" id="sortSelect">
+      <option value="unit" ${st.sort==='unit'?'selected':''}>Sort: Syllabus order</option>
+      <option value="priority" ${st.sort==='priority'?'selected':''}>Sort: Priority (tier + weak)</option>
+      <option value="mastery-asc" ${st.sort==='mastery-asc'?'selected':''}>Sort: Weakest first</option>
+      <option value="mastery-desc" ${st.sort==='mastery-desc'?'selected':''}>Sort: Strongest first</option>
+      <option value="az" ${st.sort==='az'?'selected':''}>Sort: A → Z</option>
+      <option value="flagged" ${st.sort==='flagged'?'selected':''}>Sort: Flagged first</option>
+    </select>
+  </div>
+
+  <div class="tier-legend">
+    ${['S','A','B','C'].map(t=>{
+      const info = TIER_INFO[t];
+      return `<div class="tl-item"><span class="tier-badge" style="background:${hexA(COLORS[info.color],0.18)}; color:${COLORS[info.color]}">${t}</span><span><b>${info.name.split('—')[1].trim()}</b> · ${info.desc}</span></div>`;
+    }).join('')}
+    <span class="tl-note">Priority = JEE Main PYQ frequency, last 5 sessions (2021–25)${def.id==='biology'?' · Biology tiers follow general high-yield consensus, not published IAT/NEST data':''}</span>
+  </div>
+
+  <div class="milestone">
+    <span class="m-title">Milestone coverage</span>
+    ${milestoneHtml}
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:34px;">#</th>
+          <th>Chapter</th>
+          <th style="width:44px; text-align:center;" title="Priority tier based on JEE PYQ frequency">Tier</th>
+          ${STAGES.map(s=>`<th class="stage" title="${s.full}">${s.label}</th>`).join('')}
+          <th>Mastery</th>
+          <th style="text-align:right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="chapterTbody"></tbody>
+    </table>
+  </div>
+  `;
+
+  renderChapterRows(subjId);
+
+  // event bindings
+  document.getElementById('searchInput').addEventListener('input', e=>{ st.search = e.target.value; renderChapterRows(subjId); });
+  document.getElementById('examFilter').addEventListener('change', e=>{ st.exam = e.target.value; renderChapterRows(subjId); });
+  document.getElementById('unitFilter').addEventListener('change', e=>{ st.unit = e.target.value; renderChapterRows(subjId); });
+  document.getElementById('tierFilter').addEventListener('change', e=>{ st.tier = e.target.value; renderChapterRows(subjId); });
+  document.getElementById('sortSelect').addEventListener('change', e=>{ st.sort = e.target.value; renderChapterRows(subjId); });
+  document.querySelectorAll('.unit-card[data-unit]').forEach(el=>{
+    el.addEventListener('click', ()=>{ st.unit = el.dataset.unit; document.getElementById('unitFilter').value = el.dataset.unit; renderChapterRows(subjId); });
+  });
+}
+
+function renderChapterRows(subjId){
+  const def = SUBJECT_DEFS.find(s=>s.id===subjId);
+  const st = getSubjState(subjId);
+  let chs = allChaptersOf(subjId);
+
+  chs = filterByTag(chs, st.exam);
+  if(st.unit !== 'ALL') chs = chs.filter(c=>c.unit===st.unit);
+  if(st.tier && st.tier !== 'ALL') chs = chs.filter(c=>c.tier===st.tier);
+  if(st.search.trim()) chs = chs.filter(c=>c.name.toLowerCase().includes(st.search.trim().toLowerCase()));
+
+  if(st.sort==='mastery-asc') chs.sort((a,b)=>mastery(a.id)-mastery(b.id));
+  else if(st.sort==='mastery-desc') chs.sort((a,b)=>mastery(b.id)-mastery(a.id));
+  else if(st.sort==='az') chs.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(st.sort==='flagged') chs.sort((a,b)=>(getProg(b.id).flag?1:0)-(getProg(a.id).flag?1:0));
+  else if(st.sort==='priority') chs.sort((a,b)=> priorityScore(b) - priorityScore(a));
+  // 'unit' = keep natural syllabus order (already grouped)
+
+  const tbody = document.getElementById('chapterTbody');
+  if(!chs.length){
+    tbody.innerHTML = `<tr><td colspan="${4+STAGES.length+1}"><div class="empty-state"><div class="em-icon">🗂️</div>No chapters match these filters.</div></td></tr>`;
+    return;
+  }
+
+  let html = '';
+  let lastUnit = null;
+  let idx = 0;
+  chs.forEach(c=>{
+    if(st.sort==='unit' && c.unit !== lastUnit){
+      html += `<tr class="unit-divider"><td colspan="${4+STAGES.length+1}">${c.unit}</td></tr>`;
+      lastUnit = c.unit;
+    }
+    idx++;
+    const p = getProg(c.id);
+    const m = mastery(c.id);
+    const color = pctColor(m);
+    const tinfo = TIER_INFO[c.tier] || TIER_INFO.B;
+    html += `<tr data-chid="${c.id}">
+      <td>${idx}</td>
+      <td class="chname">
+        <div class="cn">${c.name}${p.note ? '<span class="note-indicator" title="Has a note"></span>':''}</div>
+        <div class="ctags">${c.tags.map(tagPill).join('')}</div>
+      </td>
+      <td class="tiercell">
+        <span class="tier-badge" style="background:${hexA(COLORS[tinfo.color],0.18)}; color:${COLORS[tinfo.color]}" title="${tinfo.name}">${c.tier}</span>
+      </td>
+      ${STAGES.map(s=>`<td class="stage">
+        <button class="chk ${p[s.key]?'on':''}" data-stage="${s.key}" style="${p[s.key]?`background:${COLORS[def.accent]}; border-color:${COLORS[def.accent]}`:''}" title="${s.full}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
+        </button>
+      </td>`).join('')}
+      <td class="pctcell">
+        <span class="pct-badge" style="background:${hexA(color,0.16)}; color:${color}">${m}%</span>
+        <div class="pct-track"><i style="width:${m}%; background:${color}"></i></div>
+      </td>
+      <td class="actions">
+        <button class="icon-btn ${p.flag?'flagged':''}" data-act="flag" title="Flag for revisit">
+          <svg viewBox="0 0 24 24" fill="${p.flag?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M5 3v18l7-4 7 4V3H5z"/></svg>
+        </button>
+        <button class="icon-btn" data-act="note" title="Add / edit note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4h9M11 12h9M11 20h9M4 4h.01M4 12h.01M4 20h.01"/></svg>
+        </button>
+        <button class="icon-btn" data-act="reset" title="Reset progress on this chapter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v6h6M20 20v-6h-6M4.5 15A8 8 0 0018 18.5M19.5 9A8 8 0 006 5.5"/></svg>
+        </button>
+        ${c.custom ? `<button class="icon-btn" data-act="delete" title="Delete custom chapter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m-9 0l1 14h8l1-14"/></svg>
+        </button>` : ''}
+      </td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+
+  tbody.querySelectorAll('.chk').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id = btn.closest('tr').dataset.chid;
+      const stage = btn.dataset.stage;
+      const p = getProg(id);
+      p[stage] = !p[stage];
+      await saveProgress();
+      renderTabs();
+      renderSubject(subjId); // full re-render to refresh stats/milestones
+      restoreFilterState(subjId);
+    });
+  });
+  tbody.querySelectorAll('[data-act="flag"]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id = btn.closest('tr').dataset.chid;
+      const p = getProg(id);
+      p.flag = !p.flag;
+      await saveProgress();
+      renderSubject(subjId);
+      restoreFilterState(subjId);
+    });
+  });
+  tbody.querySelectorAll('[data-act="reset"]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id = btn.closest('tr').dataset.chid;
+      if(!confirm('Reset all tracked progress for this chapter?')) return;
+      progress[id] = defaultProgress();
+      await saveProgress();
+      renderTabs();
+      renderSubject(subjId);
+      restoreFilterState(subjId);
+      showToast('Chapter progress reset');
+    });
+  });
+  tbody.querySelectorAll('[data-act="delete"]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id = btn.closest('tr').dataset.chid;
+      if(!confirm('Delete this custom chapter permanently?')) return;
+      customChapters[subjId] = (customChapters[subjId]||[]).filter(c=>c.id!==id);
+      delete progress[id];
+      await saveCustom(); await saveProgress();
+      renderTabs();
+      renderSubject(subjId);
+      restoreFilterState(subjId);
+      showToast('Custom chapter deleted');
+    });
+  });
+  tbody.querySelectorAll('[data-act="note"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('tr').dataset.chid;
+      openNoteModal(id, subjId);
+    });
+  });
+}
+
+function restoreFilterState(subjId){
+  const st = getSubjState(subjId);
+  const si = document.getElementById('searchInput'); if(si) si.value = st.search;
+  const ef = document.getElementById('examFilter'); if(ef) ef.value = st.exam;
+  const uf = document.getElementById('unitFilter'); if(uf) uf.value = st.unit;
+  const tf = document.getElementById('tierFilter'); if(tf) tf.value = st.tier;
+  const so = document.getElementById('sortSelect'); if(so) so.value = st.sort;
+}
+
+/* ============================= NOTE MODAL ============================= */
+let noteCtx = null;
+function openNoteModal(chapterId, subjId){
+  noteCtx = {chapterId, subjId};
+  const p = getProg(chapterId);
+  const chapter = allChaptersOf(subjId).find(c=>c.id===chapterId);
+  document.getElementById('noteModalTitle').textContent = 'Note — ' + (chapter ? chapter.name : '');
+  document.getElementById('noteText').value = p.note || '';
+  document.getElementById('noteModalBackdrop').classList.add('show');
+  document.getElementById('noteText').focus();
+}
+document.getElementById('noteCancel').addEventListener('click', ()=> document.getElementById('noteModalBackdrop').classList.remove('show'));
+document.getElementById('noteModalBackdrop').addEventListener('click', e=>{ if(e.target.id==='noteModalBackdrop') document.getElementById('noteModalBackdrop').classList.remove('show'); });
+document.getElementById('noteSave').addEventListener('click', async ()=>{
+  if(!noteCtx) return;
+  const p = getProg(noteCtx.chapterId);
+  p.note = document.getElementById('noteText').value;
+  await saveProgress();
+  document.getElementById('noteModalBackdrop').classList.remove('show');
+  if(activeTab===noteCtx.subjId){ renderSubject(noteCtx.subjId); restoreFilterState(noteCtx.subjId); }
+  showToast('Note saved');
+});
+
+/* ============================= ADD CHAPTER MODAL ============================= */
+function openChapterModal(){
+  const sel = document.getElementById('mSubject');
+  sel.innerHTML = SUBJECT_DEFS.map(s=>`<option value="${s.id}" ${activeTab===s.id?'selected':''}>${s.icon} ${s.name}</option>`).join('');
+  updateTagChips(sel.value);
+  document.getElementById('mUnit').value = '';
+  document.getElementById('mName').value = '';
+  document.getElementById('mTier').value = 'B';
+  document.getElementById('chapterModalBackdrop').classList.add('show');
+  document.getElementById('mName').focus();
+}
+function updateTagChips(subjId){
+  const def = SUBJECT_DEFS.find(s=>s.id===subjId);
+  const box = document.getElementById('mTags');
+  box.innerHTML = ALL.map(t=>{
+    const sel = def.defaultTags.includes(t) ? 'sel' : '';
+    const color = t==='J'?COLORS.blue:t==='I'?COLORS.mauve:COLORS.green;
+    return `<button type="button" class="chip-opt ${sel}" data-tag="${t}" style="${sel?`background:${color}; border-color:${color}; color:#11111b`:''}">${t}</button>`;
+  }).join('');
+  box.querySelectorAll('.chip-opt').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const isSel = b.classList.toggle('sel');
+      const t = b.dataset.tag;
+      const color = t==='J'?COLORS.blue:t==='I'?COLORS.mauve:COLORS.green;
+      if(isSel){ b.style.background=color; b.style.borderColor=color; b.style.color='#11111b'; }
+      else { b.style.background=''; b.style.borderColor=''; b.style.color=''; }
+    });
+  });
+}
+document.getElementById('addChapterBtn').addEventListener('click', openChapterModal);
+document.getElementById('mSubject').addEventListener('change', e=> updateTagChips(e.target.value));
+document.getElementById('mCancel').addEventListener('click', ()=> document.getElementById('chapterModalBackdrop').classList.remove('show'));
+document.getElementById('chapterModalBackdrop').addEventListener('click', e=>{ if(e.target.id==='chapterModalBackdrop') document.getElementById('chapterModalBackdrop').classList.remove('show'); });
+document.getElementById('mSave').addEventListener('click', async ()=>{
+  const subjId = document.getElementById('mSubject').value;
+  const unit = document.getElementById('mUnit').value.trim() || 'Custom';
+  const name = document.getElementById('mName').value.trim();
+  if(!name){ showToast('Give the chapter a name first'); return; }
+  const tags = Array.from(document.querySelectorAll('#mTags .chip-opt.sel')).map(b=>b.dataset.tag);
+  const tier = document.getElementById('mTier').value || 'B';
+  const id = subjId+'-custom-'+Date.now();
+  const chapter = {id, name, unit, tags: tags.length?tags:['J'], custom:true, subject:subjId, tier};
+  if(!customChapters[subjId]) customChapters[subjId] = [];
+  customChapters[subjId].push(chapter);
+  await saveCustom();
+  document.getElementById('chapterModalBackdrop').classList.remove('show');
+  activeTab = subjId;
+  renderApp();
+  showToast('Chapter added');
+});
+
+/* ============================= TOP ACTIONS ============================= */
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const data = {progress, customChapters, exportedAt: new Date().toISOString()};
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'ascent-prep-progress.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Progress exported');
+});
+document.getElementById('resetBtn').addEventListener('click', async ()=>{
+  if(!confirm('This clears ALL tracked progress across every subject. Custom chapters stay, but their progress resets too. Continue?')) return;
+  progress = {};
+  await saveProgress();
+  renderApp();
+  showToast('All progress cleared');
+});
+
+/* ============================= APP ROOT ============================= */
+function renderApp(){
+  renderTabs();
+  if(activeTab==='overview') renderOverview();
+  else renderSubject(activeTab);
+}
+
+(async function init(){
+  await loadState();
+  renderApp();
+  if(!storageOk) showToast('Storage unavailable — progress will not persist this session');
+})();
 </script>
 </body>
 </html>
